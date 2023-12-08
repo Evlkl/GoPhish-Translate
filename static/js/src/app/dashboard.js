@@ -1,97 +1,97 @@
 var campaigns = []
 // statuses is a helper map to point result statuses to ui classes
 var statuses = {
-    "Email Sent": {
+    "E-Poçt göndərildi": {
         color: "#1abc9c",
         label: "label-success",
         icon: "fa-envelope",
         point: "ct-point-sent"
     },
-    "Emails Sent": {
+    "E-Poçtlar göndərildi": {
         color: "#1abc9c",
         label: "label-success",
         icon: "fa-envelope",
         point: "ct-point-sent"
     },
-    "In progress": {
+    "Davam edir": {
         label: "label-primary"
     },
-    "Queued": {
+    "Növbədə": {
         label: "label-info"
     },
-    "Completed": {
+    "Tamamlandı": {
         label: "label-success"
     },
-    "Email Opened": {
+    "E-poçt Açıldı": {
         color: "#f9bf3b",
         label: "label-warning",
         icon: "fa-envelope",
         point: "ct-point-opened"
     },
-    "Email Reported": {
+    "E-poçt bildirildi": {
         color: "#45d6ef",
         label: "label-warning",
         icon: "fa-bullhorne",
         point: "ct-point-reported"
     },
-    "Clicked Link": {
+    "Kliklənmiş Link": {
         color: "#F39C12",
         label: "label-clicked",
         icon: "fa-mouse-pointer",
         point: "ct-point-clicked"
     },
-    "Success": {
+    "Uğurlu": {
         color: "#f05b4f",
         label: "label-danger",
         icon: "fa-exclamation",
         point: "ct-point-clicked"
     },
-    "Error": {
+    "Xəta": {
         color: "#6c7a89",
         label: "label-default",
         icon: "fa-times",
         point: "ct-point-error"
     },
-    "Error Sending Email": {
+    "E-poçt göndərmə xətası": {
         color: "#6c7a89",
         label: "label-default",
         icon: "fa-times",
         point: "ct-point-error"
     },
-    "Submitted Data": {
+    "Data Daxil Edildi": {
         color: "#f05b4f",
         label: "label-danger",
         icon: "fa-exclamation",
         point: "ct-point-clicked"
     },
-    "Unknown": {
+    "Naməlum": {
         color: "#6c7a89",
         label: "label-default",
         icon: "fa-question",
         point: "ct-point-error"
     },
-    "Sending": {
+    "Göndərilir": {
         color: "#428bca",
         label: "label-primary",
         icon: "fa-spinner",
         point: "ct-point-sending"
     },
-    "Campaign Created": {
+    "Kampaniya Yaradıldı": {
         label: "label-success",
         icon: "fa-rocket"
     }
 }
 
 var statsMapping = {
-    "sent": "Email Sent",
-    "opened": "Email Opened",
-    "email_reported": "Email Reported",
-    "clicked": "Clicked Link",
-    "submitted_data": "Submitted Data",
+    "sent": "E-Poçt göndərildi",
+    "opened": "E-poçt Açıldı",
+    "email_reported": "E-poçt bildirildi",
+    "clicked": "Kliklənmiş Link",
+    "submitted_data": "Data Daxil Edildi",
 }
 
 function deleteCampaign(idx) {
-    if (confirm("Delete " + campaigns[idx].name + "?")) {
+    if (confirm("Sil " + campaigns[idx].name + "?")) {
         api.campaignId.delete(campaigns[idx].id)
             .success(function (data) {
                 successFlash(data.message)
@@ -226,7 +226,7 @@ function generateTimelineChart(campaigns) {
             type: 'areaspline'
         },
         title: {
-            text: 'Phishing Success Overview'
+            text: 'Phishing Uğuruna Baxış'
         },
         xAxis: {
             type: 'datetime',
@@ -243,7 +243,7 @@ function generateTimelineChart(campaigns) {
             min: 0,
             max: 100,
             title: {
-                text: "% of Success"
+                text: "Uğur faizi"
             }
         },
         tooltip: {
@@ -333,11 +333,11 @@ $(document).ready(function () {
                     //section for tooltips on the status of a campaign to show some quick stats
                     var launchDate;
                     if (moment(campaign.launch_date).isAfter(moment())) {
-                        launchDate = "Scheduled to start: " + moment(campaign.launch_date).format('MMMM Do YYYY, h:mm:ss a')
-                        var quickStats = launchDate + "<br><br>" + "Number of recipients: " + campaign.stats.total
+                        launchDate = "Başlamaq planlaşdırılır: " + moment(campaign.launch_date).format('MMMM Do YYYY, h:mm:ss a')
+                        var quickStats = launchDate + "<br><br>" + "Alıcıların sayı: " + campaign.stats.total
                     } else {
-                        launchDate = "Launch Date: " + moment(campaign.launch_date).format('MMMM Do YYYY, h:mm:ss a')
-                        var quickStats = launchDate + "<br><br>" + "Number of recipients: " + campaign.stats.total + "<br><br>" + "Emails opened: " + campaign.stats.opened + "<br><br>" + "Emails clicked: " + campaign.stats.clicked + "<br><br>" + "Submitted Credentials: " + campaign.stats.submitted_data + "<br><br>" + "Errors : " + campaign.stats.error + "<br><br>" + "Reported : " + campaign.stats.email_reported
+                        launchDate = "Başlanma Tarixi: " + moment(campaign.launch_date).format('MMMM Do YYYY, h:mm:ss a')
+                        var quickStats = launchDate + "<br><br>" + "Alıcıların sayı: " + campaign.stats.total + "<br><br>" + "E-poçtlar Açıldı: " + campaign.stats.opened + "<br><br>" + "E-poçtlar klikləndi: " + campaign.stats.clicked + "<br><br>" + "Daxil Edilmiş Datalar: " + campaign.stats.submitted_data + "<br><br>" + "Xətalar : " + campaign.stats.error + "<br><br>" + "Bildirilənlər : " + campaign.stats.email_reported
                     }
                     // Add it to the list
                     campaignRows.push([
@@ -349,10 +349,10 @@ $(document).ready(function () {
                         campaign.stats.submitted_data,
                         campaign.stats.email_reported,
                         "<span class=\"label " + label + "\" data-toggle=\"tooltip\" data-placement=\"right\" data-html=\"true\" title=\"" + quickStats + "\">" + campaign.status + "</span>",
-                        "<div class='pull-right'><a class='btn btn-primary' href='/campaigns/" + campaign.id + "' data-toggle='tooltip' data-placement='left' title='View Results'>\
+                        "<div class='pull-right'><a class='btn btn-primary' href='/campaigns/" + campaign.id + "' data-toggle='tooltip' data-placement='left' title='Nəticələri Gör'>\
                     <i class='fa fa-bar-chart'></i>\
                     </a>\
-                    <button class='btn btn-danger' onclick='deleteCampaign(" + i + ")' data-toggle='tooltip' data-placement='left' title='Delete Campaign'>\
+                    <button class='btn btn-danger' onclick='deleteCampaign(" + i + ")' data-toggle='tooltip' data-placement='left' title='Kampaniyanı Sil'>\
                     <i class='fa fa-trash-o'></i>\
                     </button></div>"
                     ])
@@ -367,6 +367,6 @@ $(document).ready(function () {
             }
         })
         .error(function () {
-            errorFlash("Error fetching campaigns")
+            errorFlash("Kampaniyaları əldə edərkən xəta baş verdi")
         })
 })

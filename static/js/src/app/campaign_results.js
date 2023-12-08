@@ -3,115 +3,115 @@ var doPoll = true;
 
 // statuses is a helper map to point result statuses to ui classes
 var statuses = {
-    "Email Sent": {
+    "E=poçt göndərildi": {
         color: "#1abc9c",
         label: "label-success",
         icon: "fa-envelope",
         point: "ct-point-sent"
     },
-    "Emails Sent": {
+    "E-poçtlar göndərildi": {
         color: "#1abc9c",
         label: "label-success",
         icon: "fa-envelope",
         point: "ct-point-sent"
     },
-    "In progress": {
+    "Davam edir": {
         label: "label-primary"
     },
-    "Queued": {
+    "Növbədə": {
         label: "label-info"
     },
-    "Completed": {
+    "Tamamlandı": {
         label: "label-success"
     },
-    "Email Opened": {
+    "E-poçt Açıldı": {
         color: "#f9bf3b",
         label: "label-warning",
         icon: "fa-envelope-open",
         point: "ct-point-opened"
     },
-    "Clicked Link": {
+    "Kliklənmiş Link": {
         color: "#F39C12",
         label: "label-clicked",
         icon: "fa-mouse-pointer",
         point: "ct-point-clicked"
     },
-    "Success": {
+    "Uğurlu": {
         color: "#f05b4f",
         label: "label-danger",
         icon: "fa-exclamation",
         point: "ct-point-clicked"
     },
     //not a status, but is used for the campaign timeline and user timeline
-    "Email Reported": {
+    "E-poçt bildirildi": {
         color: "#45d6ef",
         label: "label-info",
         icon: "fa-bullhorn",
         point: "ct-point-reported"
     },
-    "Error": {
+    "Xəta": {
         color: "#6c7a89",
         label: "label-default",
         icon: "fa-times",
         point: "ct-point-error"
     },
-    "Error Sending Email": {
+    "E-poçt göndərmə xətası": {
         color: "#6c7a89",
         label: "label-default",
         icon: "fa-times",
         point: "ct-point-error"
     },
-    "Submitted Data": {
+    "Data Daxil Edildi": {
         color: "#f05b4f",
         label: "label-danger",
         icon: "fa-exclamation",
         point: "ct-point-clicked"
     },
-    "Unknown": {
+    "Naməlum": {
         color: "#6c7a89",
         label: "label-default",
         icon: "fa-question",
         point: "ct-point-error"
     },
-    "Sending": {
+    "Göndərilir": {
         color: "#428bca",
         label: "label-primary",
         icon: "fa-spinner",
         point: "ct-point-sending"
     },
-    "Retrying": {
+    "Yenidən cəhd edilir": {
         color: "#6c7a89",
         label: "label-default",
         icon: "fa-clock-o",
         point: "ct-point-error"
     },
-    "Scheduled": {
+    "Planlaşdırılıb": {
         color: "#428bca",
         label: "label-primary",
         icon: "fa-clock-o",
         point: "ct-point-sending"
     },
-    "Campaign Created": {
+    "Kampaniya Yaradıldı": {
         label: "label-success",
         icon: "fa-rocket"
     }
 }
 
 var statusMapping = {
-    "Email Sent": "sent",
-    "Email Opened": "opened",
-    "Clicked Link": "clicked",
-    "Submitted Data": "submitted_data",
-    "Email Reported": "reported",
+    "E-poçt Göndərildi": "sent",
+    "E-poçt Açıldı": "opened",
+    "Kliklənmiş Link": "clicked",
+    "Data Daxil Edildi": "submitted_data",
+    "E-poçt bildirildi": "reported",
 }
 
 // This is an underwhelming attempt at an enum
 // until I have time to refactor this appropriately.
 var progressListing = [
-    "Email Sent",
-    "Email Opened",
-    "Clicked Link",
-    "Submitted Data"
+    "E-poçt Göndərildi",
+    "E-poçt Açıldı",
+    "Kliklənmiş Link",
+    "Data Daxil Edildi"
 ]
 
 var campaign = {}
@@ -126,12 +126,12 @@ function dismiss() {
 // Deletes a campaign after prompting the user
 function deleteCampaign() {
     Swal.fire({
-        title: "Are you sure?",
-        text: "This will delete the campaign. This can't be undone!",
+        title: "Əminsiz?",
+        text: "Bu, kampaniyanı siləcək. Bu geri qaytarıla bilməz!",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Delete Campaign",
+        confirmButtonText: "Kampaniyanı Sil",
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -150,8 +150,8 @@ function deleteCampaign() {
     }).then(function (result) {
         if(result.value){
             Swal.fire(
-                'Campaign Deleted!',
-                'This campaign has been deleted!',
+                'Kampaniya Silindi!',
+                'Bu Kampaniya Silinib!',
                 'success'
             );
         }
@@ -164,12 +164,12 @@ function deleteCampaign() {
 // Completes a campaign after prompting the user
 function completeCampaign() {
     Swal.fire({
-        title: "Are you sure?",
-        text: "Gophish will stop processing events for this campaign",
+        title: "Əminsiz?",
+        text: "Gophish bu kampaniya üçün dataları emal etməyi dayandıracaq",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Complete Campaign",
+        confirmButtonText: "Kampaniyanı Tamamla",
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -188,8 +188,8 @@ function completeCampaign() {
     }).then(function (result) {
         if (result.value){
             Swal.fire(
-                'Campaign Completed!',
-                'This campaign has been completed!',
+                'Kampaniya Tamamlandı!',
+                'Bu kampaniya tamamlanıb!',
                 'success'
             );
             $('#complete_button')[0].disabled = true;
@@ -260,7 +260,7 @@ function replay(event_idx) {
     /* Ensure we know where to send the user */
     // Prompt for the URL
     Swal.fire({
-        title: 'Where do you want the credentials submitted to?',
+        title: 'Dataların hara göndərilməsini istəyirsiniz?',
         input: 'text',
         showCancelButton: true,
         inputPlaceholder: "http://example.com/login",
@@ -270,7 +270,7 @@ function replay(event_idx) {
                 if (value) {
                     resolve();
                 } else {
-                    reject('Invalid URL.');
+                    reject('Yanlış URL.');
                 }
             });
         }
@@ -316,7 +316,7 @@ var renderDevice = function (event_details) {
         if (deviceVendor == 'microsoft') deviceVendor = 'windows'
     }
 
-    var deviceName = 'Unknown'
+    var deviceName = 'Naməlum'
     if (ua.os.name) {
         deviceName = ua.os.name
         if (deviceName == "Mac OS") {
@@ -330,7 +330,7 @@ var renderDevice = function (event_details) {
     }
 
     if (ua.os.version) {
-        deviceName = deviceName + ' (OS Version: ' + ua.os.version + ')'
+        deviceName = deviceName + ' (ƏS Versiyası: ' + ua.os.version + ')'
     }
 
     deviceString = '<div class="timeline-device-os"><span class="fa fa-stack">' +
@@ -340,19 +340,19 @@ var renderDevice = function (event_details) {
 
     detailsString += deviceString
 
-    var deviceBrowser = 'Unknown'
+    var deviceBrowser = 'Naməlum'
     var browserIcon = 'info-circle'
     var browserVersion = ''
 
     if (ua.browser && ua.browser.name) {
         deviceBrowser = ua.browser.name
         // Handle the "mobile safari" case
-        deviceBrowser = deviceBrowser.replace('Mobile ', '')
+        deviceBrowser = deviceBrowser.replace('Mobil ', '')
         if (deviceBrowser) {
             browserIcon = deviceBrowser.toLowerCase()
             if (browserIcon == 'ie') browserIcon = 'internet-explorer'
         }
-        browserVersion = '(Version: ' + ua.browser.version + ')'
+        browserVersion = '(Versiya: ' + ua.browser.version + ')'
     }
 
     var browserString = '<div class="timeline-device-browser"><span class="fa fa-stack">' +
@@ -376,9 +376,9 @@ function renderTimeline(data) {
         "send_date": data[8]
     }
     results = '<div class="timeline col-sm-12 well well-lg">' +
-        '<h6>Timeline for ' + escapeHtml(record.first_name) + ' ' + escapeHtml(record.last_name) +
-        '</h6><span class="subtitle">Email: ' + escapeHtml(record.email) +
-        '<br>Result ID: ' + escapeHtml(record.id) + '</span>' +
+        '<h6>' + escapeHtml(record.first_name) + ' ' + escapeHtml(record.last_name) +
+        'üçün vaxt qrafiki</h6><span class="subtitle">E-poçt: ' + escapeHtml(record.email) +
+        '<br>Nəticə ID: ' + escapeHtml(record.id) + '</span>' +
         '<div class="timeline-graph col-sm-6">'
     $.each(campaign.timeline, function (i, event) {
         if (!event.email || event.email == record.email) {
@@ -392,21 +392,21 @@ function renderTimeline(data) {
                 '    <span class="timeline-date">' + moment.utc(event.time).local().format('MMMM Do YYYY h:mm:ss a') + '</span>'
             if (event.details) {
                 details = JSON.parse(event.details)
-                if (event.message == "Clicked Link" || event.message == "Submitted Data") {
+                if (event.message == "Kliklənmiş Link" || event.message == "Data Daxil Edildi") {
                     deviceView = renderDevice(details)
                     if (deviceView) {
                         results += deviceView
                     }
                 }
-                if (event.message == "Submitted Data") {
+                if (event.message == "Data Daxil Edildi") {
                     results += '<div class="timeline-replay-button"><button onclick="replay(' + i + ')" class="btn btn-success">'
-                    results += '<i class="fa fa-refresh"></i> Replay Credentials</button></div>'
-                    results += '<div class="timeline-event-details"><i class="fa fa-caret-right"></i> View Details</div>'
+                    results += '<i class="fa fa-refresh"></i> Dataları təkrar oxuyun</button></div>'
+                    results += '<div class="timeline-event-details"><i class="fa fa-caret-right"></i> Detalları Gör</div>'
                 }
                 if (details.payload) {
                     results += '<div class="timeline-event-results">'
                     results += '    <table class="table table-condensed table-bordered table-striped">'
-                    results += '        <thead><tr><th>Parameter</th><th>Value(s)</tr></thead><tbody>'
+                    results += '        <thead><tr><th>Parametr</th><th>Value(s)</tr></thead><tbody>'
                     $.each(Object.keys(details.payload), function (i, param) {
                         if (param == "rid") {
                             return true;
@@ -420,9 +420,9 @@ function renderTimeline(data) {
                     results += '</div>'
                 }
                 if (details.error) {
-                    results += '<div class="timeline-event-details"><i class="fa fa-caret-right"></i> View Details</div>'
+                    results += '<div class="timeline-event-details"><i class="fa fa-caret-right"></i> Detalları Gör</div>'
                     results += '<div class="timeline-event-results">'
-                    results += '<span class="label label-default">Error</span> ' + details.error
+                    results += '<span class="label label-default">Xəta</span> ' + details.error
                     results += '</div>'
                 }
             }
@@ -430,13 +430,13 @@ function renderTimeline(data) {
         }
     })
     // Add the scheduled send event at the bottom
-    if (record.status == "Scheduled" || record.status == "Retrying") {
+    if (record.status == "Planlaşdırılıb" || record.status == "Yenidən cəhd edilir") {
         results += '<div class="timeline-entry">' +
             '    <div class="timeline-bar"></div>'
         results +=
             '    <div class="timeline-icon ' + statuses[record.status].label + '">' +
             '    <i class="fa ' + statuses[record.status].icon + '"></i></div>' +
-            '    <div class="timeline-message">' + "Scheduled to send at " + record.send_date + '</span>'
+            '    <div class="timeline-message">' + "Göndərilməsi planlaşdırılır " + record.send_date + '</span>'
     }
     results += '</div></div>'
     return results
@@ -450,7 +450,7 @@ var renderTimelineChart = function (chartopts) {
             height: "200px"
         },
         title: {
-            text: 'Campaign Timeline'
+            text: 'Kampaniya qrafiki'
         },
         xAxis: {
             type: 'datetime',
@@ -478,7 +478,7 @@ var renderTimelineChart = function (chartopts) {
         tooltip: {
             formatter: function () {
                 return Highcharts.dateFormat('%A, %b %d %l:%M:%S %P', new Date(this.x)) +
-                    '<br>Event: ' + this.point.message + '<br>Email: <b>' + this.point.email + '</b>'
+                    '<br>Event: ' + this.point.message + '<br>E-poçt: <b>' + this.point.email + '</b>'
             }
         },
         legend: {
@@ -615,8 +615,8 @@ function createStatusLabel(status, send_date) {
     var label = statuses[status].label || "label-default";
     var statusColumn = "<span class=\"label " + label + "\">" + status + "</span>"
     // Add the tooltip if the email is scheduled to be sent
-    if (status == "Scheduled" || status == "Retrying") {
-        var sendDateMessage = "Scheduled to send at " + send_date
+    if (status == "Planlaşdırılıb" || status == "Yenidən cəhd edilir") {
+        var sendDateMessage = "Göndərilməsi planlaşdırılır " + send_date
         statusColumn = "<span class=\"label " + label + "\" data-toggle=\"tooltip\" data-placement=\"top\" data-html=\"true\" title=\"" + sendDateMessage + "\">" + status + "</span>"
     }
     return statusColumn
@@ -661,7 +661,7 @@ function poll() {
             $.each(campaign.results, function (i, result) {
                 email_series_data[result.status]++;
                 if (result.reported) {
-                    email_series_data['Email Reported']++
+                    email_series_data['E-poçt bildirildi']++
                 }
                 // Backfill status values
                 var step = progressListing.indexOf(result.status)
@@ -730,10 +730,10 @@ function load() {
                 $("#loading").hide()
                 $("#campaignResults").show()
                 // Set the title
-                $("#page-title").text("Results for " + c.name)
-                if (c.status == "Completed") {
+                $("#page-title").text(c.name + "üçün nəticələr ")
+                if (c.status == "Tamamlandı") {
                     $('#complete_button')[0].disabled = true;
-                    $('#complete_button').text('Completed!');
+                    $('#complete_button').text('Tamamlandı!');
                     doPoll = false;
                 }
                 // Setup viewing the details of a result
@@ -807,7 +807,7 @@ function load() {
                     ])
                     email_series_data[result.status]++;
                     if (result.reported) {
-                        email_series_data['Email Reported']++
+                        email_series_data['E-poçt bildirildi']++
                     }
                     // Backfill status values
                     var step = progressListing.indexOf(result.status)
@@ -838,7 +838,7 @@ function load() {
                 });
                 // Setup the graphs
                 $.each(campaign.timeline, function (i, event) {
-                    if (event.message == "Campaign Created") {
+                    if (event.message == "Kampaniya Yaradıldı") {
                         return true
                     }
                     var event_date = moment.utc(event.time).local()
@@ -901,7 +901,7 @@ function load() {
         })
         .error(function () {
             $("#loading").hide()
-            errorFlash(" Campaign not found!")
+            errorFlash("Kampaniya tapılmadı!")
         })
 }
 
@@ -920,12 +920,12 @@ function refresh() {
 
 function report_mail(rid, cid) {
     Swal.fire({
-        title: "Are you sure?",
-        text: "This result will be flagged as reported (RID: " + rid + ")",
+        title: "Əminsiniz?",
+        text: "Bu nəticə bildirildiyi kimi qeyd olunacaq (RID: " + rid + ")",
         type: "question",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Continue",
+        confirmButtonText: "Davam et",
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -939,20 +939,20 @@ function report_mail(rid, cid) {
                 fetch(report_url)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
+                        throw new Error(`HTTP xətası! Status: ${response.status}`);
                     }
                     refresh();
                 })
                 .catch(error => {
                     let errorMessage = error.message;
-                    if (error.message === "Failed to fetch") {
-                        errorMessage = "This might be due to Mixed Content issues or network problems.";
+                    if (error.message === "Nəsə Yanlış getdi") {
+                        errorMessage = "Bunun səbəbi Qarışıq Məzmun problemləri və ya şəbəkə problemləri ola bilər.";
                     }
                     Swal.fire({
-                        title: 'Error',
+                        title: 'Xəta',
                         text: errorMessage,
                         type: 'error',
-                        confirmButtonText: 'Close'
+                        confirmButtonText: 'Bağla'
                     });
                 });
             }));

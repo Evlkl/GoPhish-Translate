@@ -48,7 +48,7 @@ function save(idx) {
         template.id = templates[idx].id
         api.templateId.put(template)
             .success(function (data) {
-                successFlash("Template edited successfully!")
+                successFlash("Şablon uğurla redaktə edildi!")
                 load()
                 dismiss()
             })
@@ -59,7 +59,7 @@ function save(idx) {
         // Submit the template
         api.templates.post(template)
             .success(function (data) {
-                successFlash("Template added successfully!")
+                successFlash("Şablon uğurla əlavə edildi!")
                 load()
                 dismiss()
             })
@@ -81,12 +81,12 @@ function dismiss() {
 
 var deleteTemplate = function (idx) {
     Swal.fire({
-        title: "Are you sure?",
-        text: "This will delete the template. This can't be undone!",
+        title: "Əminsiniz?",
+        text: "Bu şablonu siləcək. Bu geri qaytarıla bilməz!",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Delete " + escapeHtml(templates[idx].name),
+        confirmButtonText: "Sil " + escapeHtml(templates[idx].name),
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -104,19 +104,19 @@ var deleteTemplate = function (idx) {
     }).then(function (result) {
         if(result.value) {
             Swal.fire(
-                'Template Deleted!',
-                'This template has been deleted!',
+                'Şablon silindi!',
+                'Bu şablon silindi!',
                 'success'
             );
         }
-        $('button:contains("OK")').on('click', function () {
+        $('button:contains("Bəli")').on('click', function () {
             location.reload()
         })
     })
 }
 
 function deleteTemplate(idx) {
-    if (confirm("Delete " + templates[idx].name + "?")) {
+    if (confirm("Sil " + templates[idx].name + "?")) {
         api.templateId.delete(templates[idx].id)
             .success(function (data) {
                 successFlash(data.message)
@@ -187,7 +187,7 @@ function edit(idx) {
         attachments: []
     }
     if (idx != -1) {
-        $("#templateModalLabel").text("Edit Template")
+        $("#templateModalLabel").text("Şablonu redaktə edin")
         template = templates[idx]
         $("#name").val(template.name)
         $("#subject").val(template.subject)
@@ -214,7 +214,7 @@ function edit(idx) {
         }
 
     } else {
-        $("#templateModalLabel").text("New Template")
+        $("#templateModalLabel").text("Yeni Şablon")
     }
     // Handle Deletion
     $("#attachmentsTable").unbind('click').on("click", "span>i.fa-trash-o", function () {
@@ -250,7 +250,7 @@ function copy(idx) {
         attachments: []
     }
     template = templates[idx]
-    $("#name").val("Copy of " + template.name)
+    $("#name").val(template.name + " kopyası")
     $("#subject").val(template.subject)
     $("#envelope-sender").val(template.envelope_sender)
     $("#html_editor").val(template.html)
@@ -283,7 +283,7 @@ function importEmail() {
     raw = $("#email_content").val()
     convert_links = $("#convert_links_checkbox").prop("checked")
     if (!raw) {
-        modalError("No Content Specified!")
+        modalError("Məzmun qeyd edilməyib!")
     } else {
         api.import_email({
                 content: raw,
@@ -329,13 +329,13 @@ function load() {
                     templateRows.push([
                         escapeHtml(template.name),
                         moment(template.modified_date).format('MMMM Do YYYY, h:mm:ss a'),
-                        "<div class='pull-right'><span data-toggle='modal' data-backdrop='static' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Edit Template' onclick='edit(" + i + ")'>\
+                        "<div class='pull-right'><span data-toggle='modal' data-backdrop='static' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Şablonu redaktə edin' onclick='edit(" + i + ")'>\
                     <i class='fa fa-pencil'></i>\
                     </button></span>\
-		    <span data-toggle='modal' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Copy Template' onclick='copy(" + i + ")'>\
+		    <span data-toggle='modal' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Şablonu kopyalayın' onclick='copy(" + i + ")'>\
                     <i class='fa fa-copy'></i>\
                     </button></span>\
-                    <button class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Delete Template' onclick='deleteTemplate(" + i + ")'>\
+                    <button class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Şablonu silin' onclick='deleteTemplate(" + i + ")'>\
                     <i class='fa fa-trash-o'></i>\
                     </button></div>"
                     ])
@@ -348,7 +348,7 @@ function load() {
         })
         .error(function () {
             $("#loading").hide()
-            errorFlash("Error fetching templates")
+            errorFlash("Şablonları əldə edərkən xəta baş verdi")
         })
 }
 

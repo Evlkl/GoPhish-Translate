@@ -22,7 +22,7 @@ const saveWebhook = (id) => {
                 dismiss();
                 load();
                 $("#modal").modal("hide");
-                successFlash(`Webhook "${escapeHtml(wh.name)}" has been updated successfully!`);
+                successFlash(`Webhook "${escapeHtml(wh.name)}" uğurla yeniləndi!`);
             })
             .error(function(data) {
                 modalError(data.responseJSON.message)
@@ -33,7 +33,7 @@ const saveWebhook = (id) => {
                 load();
                 dismiss();
                 $("#modal").modal("hide");
-                successFlash(`Webhook "${escapeHtml(wh.name)}" has been created successfully!`);
+                successFlash(`Webhook "${escapeHtml(wh.name)}" uğurla yaradıldı!`);
             })
             .error(function(data) {
                 modalError(data.responseJSON.message)
@@ -79,7 +79,7 @@ const load = () => {
             })
         })
         .error(() => {
-            errorFlash("Error fetching webhooks")
+            errorFlash("Webhookları əldə edərkən xəta baş verdi")
         })
 };
 
@@ -88,7 +88,7 @@ const editWebhook = (id) => {
         saveWebhook(id);
     });
     if (id !== -1) {
-        $("#webhookModalLabel").text("Edit Webhook")
+        $("#webhookModalLabel").text("Webhooku Redaktə Et")
         api.webhookId.get(id)
           .success(function(wh) {
               $("#name").val(wh.name);
@@ -97,10 +97,10 @@ const editWebhook = (id) => {
               $("#is_active").prop("checked", wh.is_active);
           })
           .error(function () {
-              errorFlash("Error fetching webhook")
+              errorFlash("Webhookları əldə edərkən xəta baş verdi")
           });
     } else {
-        $("#webhookModalLabel").text("New Webhook")
+        $("#webhookModalLabel").text("Yeni Webhook")
     }
 };
 
@@ -110,12 +110,12 @@ const deleteWebhook = (id) => {
         return;
     }
     Swal.fire({
-        title: "Are you sure?",
-        text: `This will delete the webhook '${escapeHtml(wh.name)}'`,
+        title: "Əminsiniz?",
+        text: `Bu webhooku siləcək '${escapeHtml(wh.name)}'`,
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Delete",
+        confirmButtonText: "Sil",
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -136,12 +136,12 @@ const deleteWebhook = (id) => {
     }).then(function(result) {
         if (result.value) {
             Swal.fire(
-                "Webhook Deleted!",
-                `The webhook has been deleted!`,
+                "Webhook Silindi!",
+                `Bu webhook silinib!`,
                 "success"
             );
         }
-        $("button:contains('OK')").on("click", function() {
+        $("button:contains('Bəli')").on("click", function() {
             location.reload();
         })
     })
@@ -153,7 +153,7 @@ const pingUrl = (btn, whId) => {
     api.webhookId.ping(whId)
         .success(function(wh) {
             btn.disabled = false;
-            successFlash(`Ping of "${escapeHtml(wh.name)}" webhook succeeded.`);
+            successFlash(`Ping uğurla göndərildi "${escapeHtml(wh.name)}".`);
         })
         .error(function(data) {
             btn.disabled = false;
@@ -161,7 +161,7 @@ const pingUrl = (btn, whId) => {
             if (!wh) {
                 return
             }
-            errorFlash(`Ping of "${escapeHtml(wh.name)}" webhook failed: "${escapeHtml(data.responseJSON.message)}"`)
+            errorFlash(`"${escapeHtml(wh.name)}" Ping göndərilə bilmədi : "${escapeHtml(data.responseJSON.message)}"`)
         });
 };
 

@@ -21,7 +21,7 @@ const save = (id) => {
         user.id = id
         api.userId.put(user)
             .success((data) => {
-                successFlash("User " + escapeHtml(user.username) + " updated successfully!")
+                successFlash(escapeHtml(user.username) + " İstifadəçisi uğurla yeniləndi!")
                 load()
                 dismiss()
                 $("#modal").modal('hide')
@@ -34,7 +34,7 @@ const save = (id) => {
         // to /user
         api.users.post(user)
             .success((data) => {
-                successFlash("User " + escapeHtml(user.username) + " registered successfully!")
+                successFlash(escapeHtml(user.username) + " İstifadəçisi uğurla qeydiyyatdan keçdi!")
                 load()
                 dismiss()
                 $("#modal").modal('hide')
@@ -62,11 +62,11 @@ const edit = (id) => {
     })
     $("#role").select2()
     if (id == -1) {
-        $("#userModalLabel").text("New User")
+        $("#userModalLabel").text("Yeni İstifadəçi")
         $("#role").val("user")
         $("#role").trigger("change")
     } else {
-        $("#userModalLabel").text("Edit User")
+        $("#userModalLabel").text("İstifadəçini Redaktə Et")
         api.userId.get(id)
             .success((user) => {
                 $("#username").val(user.username)
@@ -79,7 +79,7 @@ const edit = (id) => {
                 }
             })
             .error(function () {
-                errorFlash("Error fetching user")
+                errorFlash("İstifadəçini əldə edərkən xəta baş verdi")
             })
     }
 }
@@ -91,19 +91,19 @@ const deleteUser = (id) => {
     }
     if (user.username == "admin") {
         Swal.fire({
-            title: "Unable to Delete User",
-            text: "The user account " + escapeHtml(user.username) + " cannot be deleted.",
+            title: "İstifadəçini silmək mümkün deyil",
+            text: escapeHtml(user.username) + " İstifadəçisi silinə bilməz.",
             type: "info"
         });
         return
     }
     Swal.fire({
-        title: "Are you sure?",
-        text: "This will delete the account for " + escapeHtml(user.username) + " as well as all of the objects they have created.\n\nThis can't be undone!",
+        title: "Əminsiniz?",
+        text: " Bu, "+ escapeHtml(user.username) +" hesabı və onun yaratdığı bütün obyektləri siləcək.\n\nBunu geri qaytarmaq mümkün deyil!",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Delete",
+        confirmButtonText: "Sil",
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -124,12 +124,12 @@ const deleteUser = (id) => {
     }).then(function (result) {
         if (result.value){
             Swal.fire(
-                'User Deleted!',
-                "The user account for " + escapeHtml(user.username) + " and all associated objects have been deleted!",
+                'İstifadəçi Silindi!',
+                 escapeHtml(user.username) + " üçün istifadəçi hesabı və bütün əlaqəli obyektlər silindi!",
                 'success'
             );
         }
-        $('button:contains("OK")').on('click', function () {
+        $('button:contains("Bəli")').on('click', function () {
             location.reload()
         })
     })
@@ -141,12 +141,12 @@ const impersonate = (id) => {
         return
     }
     Swal.fire({
-        title: "Are you sure?",
-        html: "You will be logged out of your account and logged in as <strong>" + escapeHtml(user.username) + "</strong>",
+        title: "Əminsiniz?",
+        html: "Hesabınızdan çıxacaqsınız və <strong>" + escapeHtml(user.username) + "</strong> kimi daxil olacaqsınız ",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Swap User",
+        confirmButtonText: "İstifadəçini dəyişdirin",
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -162,8 +162,8 @@ const impersonate = (id) => {
           }).then((response) => {
                 if (response.status == 200) {
                     Swal.fire({
-                        title: "Success!",
-                        html: "Successfully changed to user <strong>" + escapeHtml(user.username) + "</strong>.",
+                        title: "Uğurlu!",
+                        html: "Uğurla <strong>" + escapeHtml(user.username) + "</strong> istifadəçisinə dəyişdirildi.",
                         type: "success",
                         showCancelButton: false,
                         confirmButtonText: "Home",
@@ -174,9 +174,9 @@ const impersonate = (id) => {
                         }});
                 } else {
                     Swal.fire({
-                        title: "Error!",
+                        title: "Uğursuz!",
                         type: "error",
-                        html: "Failed to change to user <strong>" + escapeHtml(user.username) + "</strong>.",
+                        html: "İstifadəçi <strong>" + escapeHtml(user.username) + "</strong>-a dəyişmək alınmadı .",
                         showCancelButton: false,
                     })
                 }
@@ -226,7 +226,7 @@ const load = () => {
             userTable.rows.add(userRows).draw();
         })
         .error(() => {
-            errorFlash("Error fetching users")
+            errorFlash("İstifadəçiləri əldə edərkən xəta baş verdi")
         })
 }
 

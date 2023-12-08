@@ -22,7 +22,7 @@ function save(id) {
         group.id = id
         api.groupId.put(group)
             .success(function (data) {
-                successFlash("Group updated successfully!")
+                successFlash("Qrup uğurla yeniləndi!")
                 load()
                 dismiss()
                 $("#modal").modal('hide')
@@ -35,7 +35,7 @@ function save(id) {
         // to /groups
         api.groups.post(group)
             .success(function (data) {
-                successFlash("Group added successfully!")
+                successFlash("Qrup uğurla əlavə edildi!")
                 load()
                 dismiss()
                 $("#modal").modal('hide')
@@ -64,10 +64,10 @@ function edit(id) {
         save(id)
     })
     if (id == -1) {
-        $("#groupModalLabel").text("New Group");
+        $("#groupModalLabel").text("Yeni Qrup");
         var group = {}
     } else {
-        $("#groupModalLabel").text("Edit Group");
+        $("#groupModalLabel").text("Qrupu Redaktə Et");
         api.groupId.get(id)
             .success(function (group) {
                 $("#name").val(group.name)
@@ -84,7 +84,7 @@ function edit(id) {
                 targets.DataTable().rows.add(targetRows).draw()
             })
             .error(function () {
-                errorFlash("Error fetching group")
+                errorFlash("Qrupu əldə edərkən xəta baş verdi")
             })
     }
     // Handle file uploads
@@ -99,7 +99,7 @@ function edit(id) {
             var acceptFileTypes = /(csv|txt)$/i;
             var filename = data.originalFiles[0]['name']
             if (filename && !acceptFileTypes.test(filename.split(".").pop())) {
-                modalError("Unsupported file extension (use .csv or .txt)")
+                modalError("Dəstəklənməyən fayl uzantısı ( .csv və ya .txt istifadə edin)")
                 return false;
             }
             data.submit();
@@ -119,10 +119,10 @@ function edit(id) {
 
 var downloadCSVTemplate = function () {
     var csvScope = [{
-        'First Name': 'Example',
-        'Last Name': 'User',
+        'First Name': 'Ad1',
+        'Last Name': 'Soyad',
         'Email': 'foobar@example.com',
-        'Position': 'Systems Administrator'
+        'Position': 'Sistem Administrator'
     }]
     var filename = 'group_template.csv'
     var csvString = Papa.unparse(csvScope, {})
@@ -151,12 +151,12 @@ var deleteGroup = function (id) {
         return
     }
     Swal.fire({
-        title: "Are you sure?",
-        text: "This will delete the group. This can't be undone!",
+        title: "Əminsiniz?",
+        text: "Bu, qrupu siləcək. Bu geri qaytarıla bilməz!",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Delete " + escapeHtml(group.name),
+        confirmButtonText: "Sil " + escapeHtml(group.name),
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -174,12 +174,12 @@ var deleteGroup = function (id) {
     }).then(function (result) {
         if (result.value){
             Swal.fire(
-                'Group Deleted!',
-                'This group has been deleted!',
+                'Qrup Silindi!',
+                'Bu qrup silinib!',
                 'success'
             );
         }
-        $('button:contains("OK")').on('click', function () {
+        $('button:contains("Bəli")').on('click', function () {
             location.reload()
         })
     })
@@ -255,7 +255,7 @@ function load() {
             }
         })
         .error(function () {
-            errorFlash("Error fetching groups")
+            errorFlash("Qrupu əldə edərkən xəta baş verdi")
         })
 }
 

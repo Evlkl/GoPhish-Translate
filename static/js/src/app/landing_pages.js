@@ -19,7 +19,7 @@ function save(idx) {
         page.id = pages[idx].id
         api.pageId.put(page)
             .success(function (data) {
-                successFlash("Page edited successfully!")
+                successFlash("Səhifə uğurla redaktə edildi!")
                 load()
                 dismiss()
             })
@@ -27,7 +27,7 @@ function save(idx) {
         // Submit the page
         api.pages.post(page)
             .success(function (data) {
-                successFlash("Page added successfully!")
+                successFlash("Səhifə uğurla əlavə edildi!")
                 load()
                 dismiss()
             })
@@ -51,12 +51,12 @@ function dismiss() {
 
 var deletePage = function (idx) {
     Swal.fire({
-        title: "Are you sure?",
-        text: "This will delete the landing page. This can't be undone!",
+        title: "Əminsiniz?",
+        text: "Bu açılış səhifəsini siləcək. Bu geri qaytarıla bilməz!",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Delete " + escapeHtml(pages[idx].name),
+        confirmButtonText: "Sil " + escapeHtml(pages[idx].name),
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -74,12 +74,12 @@ var deletePage = function (idx) {
     }).then(function (result) {
         if (result.value){
             Swal.fire(
-                'Landing Page Deleted!',
-                'This landing page has been deleted!',
+                'Açılış Səhifəsi Silindi!',
+                'Bu açılış səhifəsi silinib!',
                 'success'
             );
         }
-        $('button:contains("OK")').on('click', function () {
+        $('button:contains("Bəli")').on('click', function () {
             location.reload()
         })
     })
@@ -88,7 +88,7 @@ var deletePage = function (idx) {
 function importSite() {
     url = $("#url").val()
     if (!url) {
-        modalError("No URL Specified!")
+        modalError("Heç bir URL göstərilməyib!")
     } else {
         api.clone_site({
                 url: url,
@@ -113,7 +113,7 @@ function edit(idx) {
     setupAutocomplete(CKEDITOR.instances["html_editor"])
     var page = {}
     if (idx != -1) {
-        $("#modalLabel").text("Edit Landing Page")
+        $("#modalLabel").text("Açılış səhifəsini redaktə edin")
         page = pages[idx]
         $("#name").val(page.name)
         $("#html_editor").val(page.html)
@@ -125,7 +125,7 @@ function edit(idx) {
             $("#redirect_url").show()
         }
     } else {
-        $("#modalLabel").text("New Landing Page")
+        $("#modalLabel").text("Yeni Açılış Səhifəsi")
     }
 }
 
@@ -165,13 +165,13 @@ function load() {
                     pageRows.push([
                         escapeHtml(page.name),
                         moment(page.modified_date).format('MMMM Do YYYY, h:mm:ss a'),
-                        "<div class='pull-right'><span data-toggle='modal' data-backdrop='static' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Edit Page' onclick='edit(" + i + ")'>\
+                        "<div class='pull-right'><span data-toggle='modal' data-backdrop='static' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Səhifəni Redaktə Et' onclick='edit(" + i + ")'>\
                     <i class='fa fa-pencil'></i>\
                     </button></span>\
-		    <span data-toggle='modal' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Copy Page' onclick='copy(" + i + ")'>\
+		    <span data-toggle='modal' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Səhifəni Redaktə Et' onclick='copy(" + i + ")'>\
                     <i class='fa fa-copy'></i>\
                     </button></span>\
-                    <button class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Delete Page' onclick='deletePage(" + i + ")'>\
+                    <button class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Səhifəni Sil' onclick='deletePage(" + i + ")'>\
                     <i class='fa fa-trash-o'></i>\
                     </button></div>"
                     ])
@@ -184,7 +184,7 @@ function load() {
         })
         .error(function () {
             $("#loading").hide()
-            errorFlash("Error fetching pages")
+            errorFlash("Səhifəni əldə edərkən xəta baş verdi")
         })
 }
 

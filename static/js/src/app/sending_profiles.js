@@ -26,12 +26,12 @@ function sendTestEmail() {
         }
     }
     btnHtml = $("#sendTestModalSubmit").html()
-    $("#sendTestModalSubmit").html('<i class="fa fa-spinner fa-spin"></i> Sending')
+    $("#sendTestModalSubmit").html('<i class="fa fa-spinner fa-spin"></i> Göndərilir')
     // Send the test email
     api.send_test_email(test_email_request)
         .success(function (data) {
             $("#sendTestEmailModal\\.flashes").empty().append("<div style=\"text-align:center\" class=\"alert alert-success\">\
-	    <i class=\"fa fa-check-circle\"></i> Email Sent!</div>")
+	    <i class=\"fa fa-check-circle\"></i> E-poçt göndərildi!</div>")
             $("#sendTestModalSubmit").html(btnHtml)
         })
         .error(function (data) {
@@ -63,7 +63,7 @@ function save(idx) {
         profile.id = profiles[idx].id
         api.SMTPId.put(profile)
             .success(function (data) {
-                successFlash("Profile edited successfully!")
+                successFlash("Profil uğurla redaktə edildi!")
                 load()
                 dismiss()
             })
@@ -74,7 +74,7 @@ function save(idx) {
         // Submit the profile
         api.SMTP.post(profile)
             .success(function (data) {
-                successFlash("Profile added successfully!")
+                successFlash("Profil uğurla əlavə edildi!")
                 load()
                 dismiss()
             })
@@ -105,12 +105,12 @@ var dismissSendTestEmailModal = function () {
 
 var deleteProfile = function (idx) {
     Swal.fire({
-        title: "Are you sure?",
-        text: "This will delete the sending profile. This can't be undone!",
+        title: "Əminsiniz?",
+        text: "Bu, göndərmə profilini siləcək. Bu geri qaytarıla bilməz!",
         type: "warning",
         animation: false,
         showCancelButton: true,
-        confirmButtonText: "Delete " + escapeHtml(profiles[idx].name),
+        confirmButtonText: "Sil " + escapeHtml(profiles[idx].name),
         confirmButtonColor: "#428bca",
         reverseButtons: true,
         allowOutsideClick: false,
@@ -128,12 +128,12 @@ var deleteProfile = function (idx) {
     }).then(function (result) {
         if (result.value){
             Swal.fire(
-                'Sending Profile Deleted!',
-                'This sending profile has been deleted!',
+                'Göndərmə Profili Silindi!',
+                'Bu göndərmə profili silinib!',
                 'success'
             );
         }
-        $('button:contains("OK")').on('click', function () {
+        $('button:contains("Bəli")').on('click', function () {
             location.reload()
         })
     })
@@ -153,7 +153,7 @@ function edit(idx) {
     })
     var profile = {}
     if (idx != -1) {
-        $("#profileModalLabel").text("Edit Sending Profile")
+        $("#profileModalLabel").text("Göndərmə Profilini redaktə et")
         profile = profiles[idx]
         $("#name").val(profile.name)
         $("#interface_type").val(profile.interface_type)
@@ -166,7 +166,7 @@ function edit(idx) {
             addCustomHeader(record.key, record.value)
         });
     } else {
-        $("#profileModalLabel").text("New Sending Profile")
+        $("#profileModalLabel").text("Yeni Göndərmə Profili")
     }
 }
 
@@ -176,7 +176,7 @@ function copy(idx) {
     })
     var profile = {}
     profile = profiles[idx]
-    $("#name").val("Copy of " + profile.name)
+    $("#name").val(profile.name + " kopyası")
     $("#interface_type").val(profile.interface_type)
     $("#from").val(profile.from_address)
     $("#host").val(profile.host)
@@ -209,13 +209,13 @@ function load() {
                         escapeHtml(profile.name),
                         profile.interface_type,
                         moment(profile.modified_date).format('MMMM Do YYYY, h:mm:ss a'),
-                        "<div class='pull-right'><span data-toggle='modal' data-backdrop='static' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Edit Profile' onclick='edit(" + i + ")'>\
+                        "<div class='pull-right'><span data-toggle='modal' data-backdrop='static' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Profilə düzəliş et' onclick='edit(" + i + ")'>\
                     <i class='fa fa-pencil'></i>\
                     </button></span>\
-		    <span data-toggle='modal' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Copy Profile' onclick='copy(" + i + ")'>\
+		    <span data-toggle='modal' data-target='#modal'><button class='btn btn-primary' data-toggle='tooltip' data-placement='left' title='Profili kopyalayın' onclick='copy(" + i + ")'>\
                     <i class='fa fa-copy'></i>\
                     </button></span>\
-                    <button class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Delete Profile' onclick='deleteProfile(" + i + ")'>\
+                    <button class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Profili silin' onclick='deleteProfile(" + i + ")'>\
                     <i class='fa fa-trash-o'></i>\
                     </button></div>"
                     ])
@@ -228,7 +228,7 @@ function load() {
         })
         .error(function () {
             $("#loading").hide()
-            errorFlash("Error fetching profiles")
+            errorFlash("Profilləri əldə edərkən xəta baş verdi")
         })
 }
 

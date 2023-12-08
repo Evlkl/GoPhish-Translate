@@ -41,19 +41,19 @@ $(document).ready(function () {
         
         //To avoid unmarshalling error in controllers/api/imap.go. It would fail gracefully, but with a generic error.
         if (imapSettings.host == ""){
-            errorFlash("No IMAP Host specified")
+            errorFlash("IMAP Host qeyd edilməyib")
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             return false
         }
         if (imapSettings.port == ""){
-            errorFlash("No IMAP Port specified")
+            errorFlash("IMAP Portu qeyd edilməyib")
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             return false
         }
         if (isNaN(imapSettings.port) || imapSettings.port <1 || imapSettings.port > 65535  ){ 
-            errorFlash("Invalid IMAP Port")
+            errorFlash("Yanlış IMAP Portu")
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             return false
@@ -64,9 +64,9 @@ $(document).ready(function () {
 
         api.IMAP.post(imapSettings).done(function (data) {
                 if (data.success == true) {
-                    successFlashFade("Successfully updated IMAP settings.", 2)
+                    successFlashFade("IMAP parametrləri uğurla yeniləndi.", 2)
                 } else {
-                    errorFlash("Unable to update IMAP settings.")
+                    errorFlash("IMAP parametrlərini yeniləmək mümkün deyil.")
                 }
             })
             .success(function (data){
@@ -96,19 +96,19 @@ $(document).ready(function () {
 
         //To avoid unmarshalling error in controllers/api/imap.go. It would fail gracefully, but with a generic error. 
         if (server.host == ""){
-            errorFlash("No IMAP Host specified")
+            errorFlash("IMAP Host qeyd edilməyib")
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             return false
         }
         if (server.port == ""){
-            errorFlash("No IMAP Port specified")
+            errorFlash("IMAP Portu qeyd edilməyib")
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             return false
         }
         if (isNaN(server.port) || server.port <1 || server.port > 65535  ){
-            errorFlash("Invalid IMAP Port")
+            errorFlash("Yanlış IMAP Portu")
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             return false
@@ -134,24 +134,24 @@ $(document).ready(function () {
         api.IMAP.validate(server).done(function(data) {
             if (data.success == true) {
                 Swal.fire({
-                    title: "Success",
-                    html: "Logged into <b>" + escapeHtml($("#imaphost").val()) + "</b>",
+                    title: "Uğurlu",
+                    html: "Daxil oldu <b>" + escapeHtml($("#imaphost").val()) + "</b>",
                     type: "success",
                 })
             } else {
                 Swal.fire({
-                    title: "Failed!",
-                    html: "Unable to login to <b>" + escapeHtml($("#imaphost").val()) + "</b>.",
+                    title: "Uğursuz!",
+                    html: "Daxil olmaq mümkün deyil <b>" + escapeHtml($("#imaphost").val()) + "</b>.",
                     type: "error",
                     showCancelButton: true,
-                    cancelButtonText: "Close",
-                    confirmButtonText: "More Info",
+                    cancelButtonText: "Bağla",
+                    confirmButtonText: "Daha çox məlumat",
                     confirmButtonColor: "#428bca",
                     allowOutsideClick: false,
                 }).then(function(result) {
                     if (result.value) {
                         Swal.fire({
-                            title: "Error:",
+                            title: "Xəta:",
                             text: data.message,
                         })
                     }
@@ -161,8 +161,8 @@ $(document).ready(function () {
           })
           .fail(function() {
             Swal.fire({
-                title: "Failed!",
-                text: "An unecpected error occured.",
+                title: "Uğursuz!",
+                text: "Gözlənilməz xəta baş verdi.",
                 type: "error",
             })
           })
@@ -224,7 +224,7 @@ $(document).ready(function () {
 
         })
         .error(function () {
-            errorFlash("Error fetching IMAP settings")
+            errorFlash("IMAP parametrlərini əldə edərkən xəta baş verdi")
         })
     }
 

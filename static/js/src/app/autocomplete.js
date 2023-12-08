@@ -5,43 +5,43 @@ var TEMPLATE_TAGS = [{
     },
     {
         id: 2,
-        name: 'FirstName',
-        description: 'The recipient\'s first name.'
+        name: 'Ad',
+        description: 'Alıcının adı.'
     },
     {
         id: 3,
-        name: 'LastName',
-        description: 'The recipient\'s last name.'
+        name: 'Soyad',
+        description: 'Alıcının soyadı.'
     },
     {
         id: 4,
-        name: 'Position',
-        description: 'The recipient\'s position.'
+        name: 'Vəzifə',
+        description: 'Alıcının vəzifəsi .'
     },
     {
         id: 5,
-        name: 'From',
-        description: 'The address emails are sent from.'
+        name: 'Kimdən',
+        description: 'E-poçt-lar kimin adı ilə göndərilsin.'
     },
     {
         id: 6,
         name: 'TrackingURL',
-        description: 'The URL to track emails being opened.'
+        description: 'Açılan e-poçtları izləmək üçün URL.'
     },
     {
         id: 7,
         name: 'Tracker',
-        description: 'An HTML tag that adds a hidden tracking image (recommended instead of TrackingURL).'
+        description: 'Gizli izləmə şəkli əlavə edən HTML teqi (TrackingURL əvəzinə tövsiyə olunur).'
     },
     {
         id: 8,
         name: 'URL',
-        description: 'The URL to your Gophish listener.'
+        description: 'Sənin Phishing səhifən.'
     },
     {
         id: 9,
         name: 'BaseURL',
-        description: 'The base URL with the path and rid parameter stripped. Useful for making links to static files.'
+        description: 'Əsas URL.'
     }
 ];
 
