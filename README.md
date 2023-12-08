@@ -1,0 +1,2 @@
+# GoPhish-Translate
+GoPhish Translate
