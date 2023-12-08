@@ -3,7 +3,7 @@ var doPoll = true;
 
 // statuses is a helper map to point result statuses to ui classes
 var statuses = {
-    "E=poçt göndərildi": {
+    "E-poçt göndərildi": {
         color: "#1abc9c",
         label: "label-success",
         icon: "fa-envelope",
@@ -155,7 +155,7 @@ function deleteCampaign() {
                 'success'
             );
         }
-        $('button:contains("OK")').on('click', function () {
+        $('button:contains("Bəli")').on('click', function () {
             location.href = '/campaigns'
         })
     })
@@ -193,7 +193,7 @@ function completeCampaign() {
                 'success'
             );
             $('#complete_button')[0].disabled = true;
-            $('#complete_button').text('Completed!')
+            $('#complete_button').text('Tamamlandı!')
             doPoll = false;
         }
     })
@@ -377,7 +377,7 @@ function renderTimeline(data) {
     }
     results = '<div class="timeline col-sm-12 well well-lg">' +
         '<h6>' + escapeHtml(record.first_name) + ' ' + escapeHtml(record.last_name) +
-        'üçün vaxt qrafiki</h6><span class="subtitle">E-poçt: ' + escapeHtml(record.email) +
+        ' üçün vaxt qrafiki</h6><span class="subtitle">E-poçt: ' + escapeHtml(record.email) +
         '<br>Nəticə ID: ' + escapeHtml(record.id) + '</span>' +
         '<div class="timeline-graph col-sm-6">'
     $.each(campaign.timeline, function (i, event) {
