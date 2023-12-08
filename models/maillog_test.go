@@ -75,7 +75,7 @@ func (s *ModelsSuite) TestMailLogBackoff(ch *check.C) {
 
 	expectedError := &textproto.Error{
 		Code: 500,
-		Msg:  "Recipient not found",
+		Msg:  "Alıcı tapılmadı",
 	}
 	for i := m.SendAttempt; i < MaxSendAttempts; i++ {
 		err = m.Lock()
@@ -116,7 +116,7 @@ func (s *ModelsSuite) TestMailLogError(ch *check.C) {
 
 	expectedError := &textproto.Error{
 		Code: 500,
-		Msg:  "Recipient not found",
+		Msg:  "Alıcı tapılmadı",
 	}
 	err = m.Error(expectedError)
 	ch.Assert(err, check.Equals, nil)
@@ -220,7 +220,7 @@ func (s *ModelsSuite) TestMailLogGetSmtpFrom(ch *check.C) {
 		Text:           "dummytext",
 		HTML:           "Dummyhtml",
 		Subject:        "Dummysubject",
-		EnvelopeSender: "spoofing@example.com",
+		EnvelopeSender: "test@example.com",
 	}
 	ch.Assert(PostTemplate(&template), check.Equals, nil)
 	campaign := s.createCampaignDependencies(ch)
@@ -244,7 +244,7 @@ func (s *ModelsSuite) TestMailLogGetSmtpFrom(ch *check.C) {
 
 	got, err := email.NewEmailFromReader(msgBuff)
 	ch.Assert(err, check.Equals, nil)
-	ch.Assert(got.From, check.Equals, "spoofing@example.com")
+	ch.Assert(got.From, check.Equals, "test@example.com")
 }
 
 func (s *ModelsSuite) TestMailLogGenerate(ch *check.C) {

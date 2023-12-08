@@ -365,7 +365,7 @@ func TestRedirectTemplating(t *testing.T) {
 	ctx := setupTest(t)
 	defer tearDown(t, ctx)
 	p := models.Page{
-		Name:        "Redirect Page",
+		Name:        "Səhifəni yönləndirin",
 		HTML:        "<html>Test</html>",
 		UserId:      1,
 		RedirectURL: "http://example.com/{{.RId}}",
@@ -378,7 +378,7 @@ func TestRedirectTemplating(t *testing.T) {
 	template, _ := models.GetTemplate(1, 1)
 	group, _ := models.GetGroup(1, 1)
 
-	campaign := models.Campaign{Name: "Redirect campaign"}
+	campaign := models.Campaign{Name: "Kampaniyanı Yönləndirin"}
 	campaign.UserId = 1
 	campaign.Template = template
 	campaign.Page = p

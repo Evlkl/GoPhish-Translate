@@ -12,7 +12,7 @@ import (
 )
 
 func buildCSVRequest(csvPayload string) (*http.Request, error) {
-	csvHeader := "First Name,Last Name,Email\n"
+	csvHeader := "Ad,Soyad,E-Poçt\n"
 	body := new(bytes.Buffer)
 	writer := multipart.NewWriter(body)
 	part, err := writer.CreateFormFile("files[]", "example.csv")

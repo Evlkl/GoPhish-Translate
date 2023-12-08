@@ -24,10 +24,10 @@ import (
 )
 
 var (
-	firstNameRegex = regexp.MustCompile(`(?i)first[\s_-]*name`)
-	lastNameRegex  = regexp.MustCompile(`(?i)last[\s_-]*name`)
-	emailRegex     = regexp.MustCompile(`(?i)email`)
-	positionRegex  = regexp.MustCompile(`(?i)position`)
+	firstNameRegex = regexp.MustCompile(`(?i)adı`)
+	lastNameRegex  = regexp.MustCompile(`(?i)soyad`)
+	emailRegex     = regexp.MustCompile(`(?i)e-poçt`)
+	positionRegex  = regexp.MustCompile(`(?i)vəzifə`)
 )
 
 // ParseMail takes in an HTTP Request and returns an Email object
@@ -134,7 +134,7 @@ func CheckAndCreateSSL(cp string, kp string) error {
 		return nil
 	}
 
-	log.Infof("Creating new self-signed certificates for administration interface")
+	log.Infof("İdarəetmə interfeysi üçün yeni özünü imzalayan sertifikatların yaradılması")
 
 	priv, err := ecdsa.GenerateKey(elliptic.P384(), rand.Reader)
 	if err != nil {
@@ -190,6 +190,6 @@ func CheckAndCreateSSL(cp string, kp string) error {
 	pem.Encode(keyOut, &pem.Block{Type: "EC PRIVATE KEY", Bytes: b})
 	keyOut.Close()
 
-	log.Info("TLS Certificate Generation complete")
+	log.Info("TLS Sertifikatının yaradılması tamamlandı")
 	return nil
 }

@@ -106,7 +106,7 @@ func (s *ModelsSuite) TestLaunchCampaignMaillogStatus(c *check.C) {
 	// Next, verify that campaigns scheduled in the future do not lock the
 	// maillogs so that they can be picked up by the background worker.
 	campaign = s.createCampaignDependencies(c)
-	campaign.Name = "New Campaign"
+	campaign.Name = "Yeni Kampaniya"
 	campaign.LaunchDate = time.Now().Add(1 * time.Hour)
 	c.Assert(PostCampaign(&campaign, campaign.UserId), check.Equals, nil)
 	ms, err = GetMailLogsByCampaign(campaign.Id)
@@ -153,7 +153,7 @@ func (s *ModelsSuite) TestCampaignGetResults(c *check.C) {
 }
 
 func setupCampaignDependencies(b *testing.B, size int) {
-	group := Group{Name: "Test Group"}
+	group := Group{Name: "Test Qrupu"}
 	// Create a large group of 5000 members
 	for i := 0; i < size; i++ {
 		group.Targets = append(group.Targets, Target{BaseRecipient: BaseRecipient{Email: fmt.Sprintf("test%d@example.com", i), FirstName: "User", LastName: fmt.Sprintf("%d", i)}})
@@ -165,9 +165,9 @@ func setupCampaignDependencies(b *testing.B, size int) {
 	}
 
 	// Add a template
-	template := Template{Name: "Test Template"}
-	template.Subject = "{{.RId}} - Subject"
-	template.Text = "{{.RId}} - Text"
+	template := Template{Name: "Test Şablonu"}
+	template.Subject = "{{.RId}} - Mövzu"
+	template.Text = "{{.RId}} - Mətn"
 	template.HTML = "{{.RId}} - HTML"
 	template.UserId = 1
 	err = PostTemplate(&template)
@@ -176,7 +176,7 @@ func setupCampaignDependencies(b *testing.B, size int) {
 	}
 
 	// Add a landing page
-	p := Page{Name: "Test Page"}
+	p := Page{Name: "Test Səhifəsi"}
 	p.HTML = "<html>Test</html>"
 	p.UserId = 1
 	err = PostPage(&p)
@@ -185,7 +185,7 @@ func setupCampaignDependencies(b *testing.B, size int) {
 	}
 
 	// Add a sending profile
-	smtp := SMTP{Name: "Test Page"}
+	smtp := SMTP{Name: "Test Səhifəsi"}
 	smtp.UserId = 1
 	smtp.Host = "example.com"
 	smtp.FromAddress = "test@test.com"
@@ -199,12 +199,12 @@ func setupCampaignDependencies(b *testing.B, size int) {
 // actual campaign
 func setupCampaign(b *testing.B, size int) Campaign {
 	setupCampaignDependencies(b, size)
-	campaign := Campaign{Name: "Test campaign"}
+	campaign := Campaign{Name: "Test Kampaniyası"}
 	campaign.UserId = 1
-	campaign.Template = Template{Name: "Test Template"}
-	campaign.Page = Page{Name: "Test Page"}
-	campaign.SMTP = SMTP{Name: "Test Page"}
-	campaign.Groups = []Group{Group{Name: "Test Group"}}
+	campaign.Template = Template{Name: "Test Şablonu"}
+	campaign.Page = Page{Name: "Test Səhifəsi"}
+	campaign.SMTP = SMTP{Name: "Test Səhifəsi"}
+	campaign.Groups = []Group{Group{Name: "Test Qrupu"}}
 	PostCampaign(&campaign, 1)
 	return campaign
 }
@@ -214,12 +214,12 @@ func BenchmarkCampaign100(b *testing.B) {
 	setupCampaignDependencies(b, 100)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		campaign := Campaign{Name: "Test campaign"}
+		campaign := Campaign{Name: "Test Kampaniyası"}
 		campaign.UserId = 1
-		campaign.Template = Template{Name: "Test Template"}
-		campaign.Page = Page{Name: "Test Page"}
-		campaign.SMTP = SMTP{Name: "Test Page"}
-		campaign.Groups = []Group{Group{Name: "Test Group"}}
+		campaign.Template = Template{Name: "Test Şablonu"}
+		campaign.Page = Page{Name: "Test Səhifəsi"}
+		campaign.SMTP = SMTP{Name: "Test Səhifəsi"}
+		campaign.Groups = []Group{Group{Name: "Test Qrupu"}}
 
 		b.StartTimer()
 		err := PostCampaign(&campaign, 1)
@@ -239,12 +239,12 @@ func BenchmarkCampaign1000(b *testing.B) {
 	setupCampaignDependencies(b, 1000)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		campaign := Campaign{Name: "Test campaign"}
+		campaign := Campaign{Name: "Test Kampaniyası"}
 		campaign.UserId = 1
-		campaign.Template = Template{Name: "Test Template"}
-		campaign.Page = Page{Name: "Test Page"}
-		campaign.SMTP = SMTP{Name: "Test Page"}
-		campaign.Groups = []Group{Group{Name: "Test Group"}}
+		campaign.Template = Template{Name: "Test Şablonu"}
+		campaign.Page = Page{Name: "Test Səhifəsi"}
+		campaign.SMTP = SMTP{Name: "Test Səhifəsi"}
+		campaign.Groups = []Group{Group{Name: "Test Qrupu"}}
 
 		b.StartTimer()
 		err := PostCampaign(&campaign, 1)
@@ -264,12 +264,12 @@ func BenchmarkCampaign10000(b *testing.B) {
 	setupCampaignDependencies(b, 10000)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		campaign := Campaign{Name: "Test campaign"}
+		campaign := Campaign{Name: "Test Kampaniyası"}
 		campaign.UserId = 1
-		campaign.Template = Template{Name: "Test Template"}
-		campaign.Page = Page{Name: "Test Page"}
-		campaign.SMTP = SMTP{Name: "Test Page"}
-		campaign.Groups = []Group{Group{Name: "Test Group"}}
+		campaign.Template = Template{Name: "Test Şablonu"}
+		campaign.Page = Page{Name: "Test Səhifəsi"}
+		campaign.SMTP = SMTP{Name: "Test Səhifəsi"}
+		campaign.Groups = []Group{Group{Name: "Test Qrupu"}}
 
 		b.StartTimer()
 		err := PostCampaign(&campaign, 1)

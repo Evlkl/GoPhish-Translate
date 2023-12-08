@@ -20,12 +20,12 @@ func (as *Server) SendTestEmail(w http.ResponseWriter, r *http.Request) {
 		UserId:    ctx.Get(r, "user_id").(int64),
 	}
 	if r.Method != "POST" {
-		JSONResponse(w, models.Response{Success: false, Message: "Method not allowed"}, http.StatusBadRequest)
+		JSONResponse(w, models.Response{Success: false, Message: "Bu metoda icazə verilmir"}, http.StatusBadRequest)
 		return
 	}
 	err := json.NewDecoder(r.Body).Decode(s)
 	if err != nil {
-		JSONResponse(w, models.Response{Success: false, Message: "Error decoding JSON Request"}, http.StatusBadRequest)
+		JSONResponse(w, models.Response{Success: false, Message: "JSON Sorğusunun deşifrə edilməsi xətası"}, http.StatusBadRequest)
 		return
 	}
 
@@ -34,14 +34,14 @@ func (as *Server) SendTestEmail(w http.ResponseWriter, r *http.Request) {
 	// If a Template is not specified use a default
 	if s.Template.Name == "" {
 		//default message body
-		text := "It works!\n\nThis is an email letting you know that your gophish\nconfiguration was successful.\n" +
-			"Here are the details:\n\nWho you sent from: {{.From}}\n\nWho you sent to: \n" +
-			"{{if .FirstName}} First Name: {{.FirstName}}\n{{end}}" +
-			"{{if .LastName}} Last Name: {{.LastName}}\n{{end}}" +
-			"{{if .Position}} Position: {{.Position}}\n{{end}}" +
-			"\nNow go send some phish!"
+		text := "İşləyir!\n\nBu, proqramın işlədiyini bildirən bir e-poçtdur\nkonfiqurasiya uğurlu oldu.\n" +
+			"Detallar:\n\nKim Göndərdi: {{.From}}\n\nKimə göndərdin: \n" +
+			"{{if .FirstName}} Ad: {{.FirstName}}\n{{end}}" +
+			"{{if .LastName}} Soyad: {{.LastName}}\n{{end}}" +
+			"{{if .Position}} Vəzifə: {{.Position}}\n{{end}}" +
+			"\nÖyrən amma phishing etmə!"
 		t := models.Template{
-			Subject: "Default Email from Gophish",
+			Subject: "Gophish-dən standart e-poçt",
 			Text:    text,
 		}
 		s.Template = t
@@ -51,7 +51,7 @@ func (as *Server) SendTestEmail(w http.ResponseWriter, r *http.Request) {
 		if err == gorm.ErrRecordNotFound {
 			log.WithFields(logrus.Fields{
 				"template": s.Template.Name,
-			}).Error("Template does not exist")
+			}).Error("Şablon mövcud deyil")
 			JSONResponse(w, models.Response{Success: false, Message: models.ErrTemplateNotFound.Error()}, http.StatusBadRequest)
 			return
 		} else if err != nil {
@@ -70,7 +70,7 @@ func (as *Server) SendTestEmail(w http.ResponseWriter, r *http.Request) {
 		if err == gorm.ErrRecordNotFound {
 			log.WithFields(logrus.Fields{
 				"page": s.Page.Name,
-			}).Error("Page does not exist")
+			}).Error("Səhifə mövcud deyil")
 			JSONResponse(w, models.Response{Success: false, Message: models.ErrPageNotFound.Error()}, http.StatusBadRequest)
 			return
 		} else if err != nil {
@@ -130,5 +130,5 @@ func (as *Server) SendTestEmail(w http.ResponseWriter, r *http.Request) {
 		JSONResponse(w, models.Response{Success: false, Message: err.Error()}, http.StatusInternalServerError)
 		return
 	}
-	JSONResponse(w, models.Response{Success: true, Message: "Email Sent"}, http.StatusOK)
+	JSONResponse(w, models.Response{Success: true, Message: "E-Poçt Göndərildi"}, http.StatusOK)
 }

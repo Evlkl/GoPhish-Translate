@@ -96,35 +96,35 @@ type EventError struct {
 }
 
 // ErrCampaignNameNotSpecified indicates there was no template given by the user
-var ErrCampaignNameNotSpecified = errors.New("Campaign name not specified")
+var ErrCampaignNameNotSpecified = errors.New("Kampaniyanın adı göstərilməyib")
 
 // ErrGroupNotSpecified indicates there was no template given by the user
-var ErrGroupNotSpecified = errors.New("No groups specified")
+var ErrGroupNotSpecified = errors.New("Heç bir qrup göstərilməyib")
 
 // ErrTemplateNotSpecified indicates there was no template given by the user
-var ErrTemplateNotSpecified = errors.New("No email template specified")
+var ErrTemplateNotSpecified = errors.New("E-poçt şablonu göstərilməyib")
 
 // ErrPageNotSpecified indicates a landing page was not provided for the campaign
-var ErrPageNotSpecified = errors.New("No landing page specified")
+var ErrPageNotSpecified = errors.New("Açılış səhifəsi göstərilməyib")
 
 // ErrSMTPNotSpecified indicates a sending profile was not provided for the campaign
-var ErrSMTPNotSpecified = errors.New("No sending profile specified")
+var ErrSMTPNotSpecified = errors.New("Göndərmə profili göstərilməyib")
 
 // ErrTemplateNotFound indicates the template specified does not exist in the database
-var ErrTemplateNotFound = errors.New("Template not found")
+var ErrTemplateNotFound = errors.New("Şablon tapılmadı")
 
 // ErrGroupNotFound indicates a group specified by the user does not exist in the database
-var ErrGroupNotFound = errors.New("Group not found")
+var ErrGroupNotFound = errors.New("Qrup tapılmadı")
 
 // ErrPageNotFound indicates a page specified by the user does not exist in the database
-var ErrPageNotFound = errors.New("Page not found")
+var ErrPageNotFound = errors.New("Səhifə tapılmadı")
 
 // ErrSMTPNotFound indicates a sending profile specified by the user does not exist in the database
-var ErrSMTPNotFound = errors.New("Sending profile not found")
+var ErrSMTPNotFound = errors.New("Göndərmə Profili tapılmadı")
 
 // ErrInvalidSendByDate indicates that the user specified a send by date that occurs before the
 // launch date
-var ErrInvalidSendByDate = errors.New("The launch date must be before the \"send emails by\" date")
+var ErrInvalidSendByDate = errors.New("Başlama Tarixi Son Tarixdən əvvəl olmalıdır")
 
 // RecipientParameter is the URL parameter that points to the result ID for a recipient.
 const RecipientParameter = "rid"
@@ -479,7 +479,7 @@ func PostCampaign(c *Campaign, uid int64) error {
 		if err == gorm.ErrRecordNotFound {
 			log.WithFields(logrus.Fields{
 				"group": g.Name,
-			}).Error("Group does not exist")
+			}).Error("Qrup mövcud deyil")
 			return ErrGroupNotFound
 		} else if err != nil {
 			log.Error(err)
@@ -492,7 +492,7 @@ func PostCampaign(c *Campaign, uid int64) error {
 	if err == gorm.ErrRecordNotFound {
 		log.WithFields(logrus.Fields{
 			"template": c.Template.Name,
-		}).Error("Template does not exist")
+		}).Error("Şablon mövcud deyil")
 		return ErrTemplateNotFound
 	} else if err != nil {
 		log.Error(err)
@@ -505,7 +505,7 @@ func PostCampaign(c *Campaign, uid int64) error {
 	if err == gorm.ErrRecordNotFound {
 		log.WithFields(logrus.Fields{
 			"page": c.Page.Name,
-		}).Error("Page does not exist")
+		}).Error("Səhifə mövcud deyil")
 		return ErrPageNotFound
 	} else if err != nil {
 		log.Error(err)
@@ -518,7 +518,7 @@ func PostCampaign(c *Campaign, uid int64) error {
 	if err == gorm.ErrRecordNotFound {
 		log.WithFields(logrus.Fields{
 			"smtp": c.SMTP.Name,
-		}).Error("Sending profile does not exist")
+		}).Error("Göndərmə Profili mövcud deyil")
 		return ErrSMTPNotFound
 	} else if err != nil {
 		log.Error(err)
@@ -532,7 +532,7 @@ func PostCampaign(c *Campaign, uid int64) error {
 		log.Error(err)
 		return err
 	}
-	err = AddEvent(&Event{Message: "Campaign Created"}, c.Id)
+	err = AddEvent(&Event{Message: "Kampaniya Yaradıldı"}, c.Id)
 	if err != nil {
 		log.Error(err)
 	}
@@ -613,7 +613,7 @@ func PostCampaign(c *Campaign, uid int64) error {
 func DeleteCampaign(id int64) error {
 	log.WithFields(logrus.Fields{
 		"campaign_id": id,
-	}).Info("Deleting campaign")
+	}).Info("Kampaniya Silinir")
 	// Delete all the campaign results
 	err := db.Where("campaign_id=?", id).Delete(&Result{}).Error
 	if err != nil {
@@ -643,7 +643,7 @@ func DeleteCampaign(id int64) error {
 func CompleteCampaign(id int64, uid int64) error {
 	log.WithFields(logrus.Fields{
 		"campaign_id": id,
-	}).Info("Marking campaign as complete")
+	}).Info("Kampaniya tamamlandı kimi qeyd olunur")
 	c, err := GetCampaign(id, uid)
 	if err != nil {
 		return err

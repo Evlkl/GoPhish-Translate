@@ -15,17 +15,17 @@ import (
 )
 
 // ErrUsernameTaken is thrown when a user attempts to register a username that is taken.
-var ErrUsernameTaken = errors.New("Username already taken")
+var ErrUsernameTaken = errors.New("İstifadəçi adı artıq istifadə olunur")
 
 // ErrEmptyUsername is thrown when a user attempts to register a username that is taken.
-var ErrEmptyUsername = errors.New("No username provided")
+var ErrEmptyUsername = errors.New("İstifadəçi adı qeyd edilməyib")
 
 // ErrEmptyRole is throws when no role is provided when creating or modifying a user.
-var ErrEmptyRole = errors.New("No role specified")
+var ErrEmptyRole = errors.New("Heç bir rol göstərilməyib")
 
 // ErrInsufficientPermission is thrown when a user attempts to change an
 // attribute (such as the role) for which they don't have permission.
-var ErrInsufficientPermission = errors.New("Permission denied")
+var ErrInsufficientPermission = errors.New("İcazəniz yoxdur")
 
 // userRequest is the payload which represents the creation of a new user.
 type userRequest struct {
@@ -140,7 +140,7 @@ func (as *Server) User(w http.ResponseWriter, r *http.Request) {
 	}
 	existingUser, err := models.GetUser(id)
 	if err != nil {
-		JSONResponse(w, models.Response{Success: false, Message: "User not found"}, http.StatusNotFound)
+		JSONResponse(w, models.Response{Success: false, Message: "İstifadəçi tapılmadı"}, http.StatusNotFound)
 		return
 	}
 	switch {
@@ -152,8 +152,8 @@ func (as *Server) User(w http.ResponseWriter, r *http.Request) {
 			JSONResponse(w, models.Response{Success: false, Message: err.Error()}, http.StatusInternalServerError)
 			return
 		}
-		log.Infof("Deleted user account for %s", existingUser.Username)
-		JSONResponse(w, models.Response{Success: true, Message: "User deleted Successfully!"}, http.StatusOK)
+		log.Infof("%s üçün istifadəçi hesabı silindi", existingUser.Username)
+		JSONResponse(w, models.Response{Success: true, Message: "İstifadəçi uğurla silindi!"}, http.StatusOK)
 	case r.Method == "PUT":
 		ur := &userRequest{}
 		err = json.NewDecoder(r.Body).Decode(ur)

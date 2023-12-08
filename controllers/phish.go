@@ -24,11 +24,11 @@ import (
 
 // ErrInvalidRequest is thrown when a request with an invalid structure is
 // received
-var ErrInvalidRequest = errors.New("Invalid request")
+var ErrInvalidRequest = errors.New("Səhv Sorğu")
 
 // ErrCampaignComplete is thrown when an event is received for a campaign that
 // has already been marked as complete.
-var ErrCampaignComplete = errors.New("Event received on completed campaign")
+var ErrCampaignComplete = errors.New("Bu Kampaniya artıq tamamlanıb")
 
 // TransparencyResponse is the JSON response provided when a third-party
 // makes a request to the transparency handler.

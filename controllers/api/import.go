@@ -24,7 +24,7 @@ type cloneRequest struct {
 
 func (cr *cloneRequest) validate() error {
 	if cr.URL == "" {
-		return errors.New("No URL Specified")
+		return errors.New("Heç bir URL göstərilməyib")
 	}
 	return nil
 }
@@ -43,7 +43,7 @@ type emailResponse struct {
 func (as *Server) ImportGroup(w http.ResponseWriter, r *http.Request) {
 	ts, err := util.ParseCSV(r)
 	if err != nil {
-		JSONResponse(w, models.Response{Success: false, Message: "Error parsing CSV"}, http.StatusInternalServerError)
+		JSONResponse(w, models.Response{Success: false, Message: "CSV təhlili xətası"}, http.StatusInternalServerError)
 		return
 	}
 	JSONResponse(w, ts, http.StatusOK)
@@ -53,7 +53,7 @@ func (as *Server) ImportGroup(w http.ResponseWriter, r *http.Request) {
 // Returns a Message object
 func (as *Server) ImportEmail(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		JSONResponse(w, models.Response{Success: false, Message: "Method not allowed"}, http.StatusBadRequest)
+		JSONResponse(w, models.Response{Success: false, Message: "Bu metoda icazə verilmir"}, http.StatusBadRequest)
 		return
 	}
 	ir := struct {
@@ -62,7 +62,7 @@ func (as *Server) ImportEmail(w http.ResponseWriter, r *http.Request) {
 	}{}
 	err := json.NewDecoder(r.Body).Decode(&ir)
 	if err != nil {
-		JSONResponse(w, models.Response{Success: false, Message: "Error decoding JSON Request"}, http.StatusBadRequest)
+		JSONResponse(w, models.Response{Success: false, Message: "JSON Sorğusunun deşifrə edilməsi xətası"}, http.StatusBadRequest)
 		return
 	}
 	e, err := email.NewEmailFromReader(strings.NewReader(ir.Content))
@@ -102,12 +102,12 @@ func (as *Server) ImportEmail(w http.ResponseWriter, r *http.Request) {
 func (as *Server) ImportSite(w http.ResponseWriter, r *http.Request) {
 	cr := cloneRequest{}
 	if r.Method != "POST" {
-		JSONResponse(w, models.Response{Success: false, Message: "Method not allowed"}, http.StatusBadRequest)
+		JSONResponse(w, models.Response{Success: false, Message: "Bu metoda icazə verilmir"}, http.StatusBadRequest)
 		return
 	}
 	err := json.NewDecoder(r.Body).Decode(&cr)
 	if err != nil {
-		JSONResponse(w, models.Response{Success: false, Message: "Error decoding JSON Request"}, http.StatusBadRequest)
+		JSONResponse(w, models.Response{Success: false, Message: "JSON Sorğusunun deşifrə edilməsi xətası"}, http.StatusBadRequest)
 		return
 	}
 	if err = cr.validate(); err != nil {

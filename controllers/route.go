@@ -199,49 +199,49 @@ func newTemplateParams(r *http.Request) templateParams {
 // Base handles the default path and template execution
 func (as *AdminServer) Base(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Dashboard"
+	params.Title = "İdarəetmə Paneli"
 	getTemplate(w, "dashboard").ExecuteTemplate(w, "base", params)
 }
 
 // Campaigns handles the default path and template execution
 func (as *AdminServer) Campaigns(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Campaigns"
+	params.Title = "Kampaniyalar"
 	getTemplate(w, "campaigns").ExecuteTemplate(w, "base", params)
 }
 
 // CampaignID handles the default path and template execution
 func (as *AdminServer) CampaignID(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Campaign Results"
+	params.Title = "Kampaniya Nəticələri"
 	getTemplate(w, "campaign_results").ExecuteTemplate(w, "base", params)
 }
 
 // Templates handles the default path and template execution
 func (as *AdminServer) Templates(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Email Templates"
+	params.Title = "E-poçt Şablonları"
 	getTemplate(w, "templates").ExecuteTemplate(w, "base", params)
 }
 
 // Groups handles the default path and template execution
 func (as *AdminServer) Groups(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Users & Groups"
+	params.Title = "İstifadəçilər və Qruplar"
 	getTemplate(w, "groups").ExecuteTemplate(w, "base", params)
 }
 
 // LandingPages handles the default path and template execution
 func (as *AdminServer) LandingPages(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Landing Pages"
+	params.Title = "Açılış Səhifələri"
 	getTemplate(w, "landing_pages").ExecuteTemplate(w, "base", params)
 }
 
 // SendingProfiles handles the default path and template execution
 func (as *AdminServer) SendingProfiles(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Sending Profiles"
+	params.Title = "Göndərmə Profilləri"
 	getTemplate(w, "sending_profiles").ExecuteTemplate(w, "base", params)
 }
 
@@ -250,7 +250,7 @@ func (as *AdminServer) Settings(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == "GET":
 		params := newTemplateParams(r)
-		params.Title = "Settings"
+		params.Title = "Tənzimləmələr"
 		session := ctx.Get(r, "session").(*sessions.Session)
 		session.Save(r, w)
 		getTemplate(w, "settings").ExecuteTemplate(w, "base", params)
@@ -261,7 +261,7 @@ func (as *AdminServer) Settings(w http.ResponseWriter, r *http.Request) {
 		confirmPassword := r.FormValue("confirm_new_password")
 		// Check the current password
 		err := auth.ValidatePassword(currentPw, u.Hash)
-		msg := models.Response{Success: true, Message: "Settings Updated Successfully"}
+		msg := models.Response{Success: true, Message: "Tənzimləmələr Uğurla Yeniləndi"}
 		if err != nil {
 			msg.Message = err.Error()
 			msg.Success = false
@@ -290,7 +290,7 @@ func (as *AdminServer) Settings(w http.ResponseWriter, r *http.Request) {
 // and management of user accounts within Gophish.
 func (as *AdminServer) UserManagement(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "User Management"
+	params.Title = "İstifadəçi İdarəetməsi"
 	getTemplate(w, "users").ExecuteTemplate(w, "base", params)
 }
 
@@ -330,7 +330,7 @@ func (as *AdminServer) handleInvalidLogin(w http.ResponseWriter, r *http.Request
 // Webhooks is an admin-only handler that handles webhooks
 func (as *AdminServer) Webhooks(w http.ResponseWriter, r *http.Request) {
 	params := newTemplateParams(r)
-	params.Title = "Webhooks"
+	params.Title = "Webhook-lar"
 	getTemplate(w, "webhooks").ExecuteTemplate(w, "base", params)
 }
 
@@ -378,18 +378,18 @@ func (as *AdminServer) Login(w http.ResponseWriter, r *http.Request) {
 		u, err := models.GetUserByUsername(username)
 		if err != nil {
 			log.Error(err)
-			as.handleInvalidLogin(w, r, "Invalid Username/Password")
+			as.handleInvalidLogin(w, r, "Yanlış İstifadəçi Adı/Şifrə")
 			return
 		}
 		// Validate the user's password
 		err = auth.ValidatePassword(password, u.Hash)
 		if err != nil {
 			log.Error(err)
-			as.handleInvalidLogin(w, r, "Invalid Username/Password")
+			as.handleInvalidLogin(w, r, "Yanlış İstifadəçi Adı/Şifrə")
 			return
 		}
 		if u.AccountLocked {
-			as.handleInvalidLogin(w, r, "Account Locked")
+			as.handleInvalidLogin(w, r, "Hesab Bloklanıb")
 			return
 		}
 		u.LastLogin = time.Now().UTC()
@@ -408,7 +408,7 @@ func (as *AdminServer) Login(w http.ResponseWriter, r *http.Request) {
 func (as *AdminServer) Logout(w http.ResponseWriter, r *http.Request) {
 	session := ctx.Get(r, "session").(*sessions.Session)
 	delete(session.Values, "id")
-	Flash(w, r, "success", "You have successfully logged out")
+	Flash(w, r, "success", "Siz uğurla çıxış etdiniz")
 	session.Save(r, w)
 	http.Redirect(w, r, "/login", http.StatusFound)
 }
@@ -429,13 +429,13 @@ func (as *AdminServer) ResetPassword(w http.ResponseWriter, r *http.Request) {
 	u := ctx.Get(r, "user").(models.User)
 	session := ctx.Get(r, "session").(*sessions.Session)
 	if !u.PasswordChangeRequired {
-		Flash(w, r, "info", "Please reset your password through the settings page")
+		Flash(w, r, "info", "Zəhmət olmasa tənzimləmələr səhifəsində parolunuzu sıfırlayın")
 		session.Save(r, w)
 		http.Redirect(w, r, "/settings", http.StatusTemporaryRedirect)
 		return
 	}
 	params := newTemplateParams(r)
-	params.Title = "Reset Password"
+	params.Title = "Şifrəni Sıfırla"
 	switch {
 	case r.Method == http.MethodGet:
 		params.Flashes = session.Flashes()

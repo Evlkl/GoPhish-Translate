@@ -42,7 +42,7 @@ func (s *ModelsSuite) TestGetUserByAPIKeyWithNotExistingAPIKey(c *check.C) {
 }
 
 func (s *ModelsSuite) TestGetUserByUsernameWithNotExistingUser(c *check.C) {
-	u, err := GetUserByUsername("test user does not exist")
+	u, err := GetUserByUsername("test istifadəçisi yoxdur")
 	c.Assert(err, check.Equals, gorm.ErrRecordNotFound)
 	c.Assert(u.Username, check.Equals, "")
 }

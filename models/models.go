@@ -40,25 +40,25 @@ const InitialAdminPassword = "GOPHISH_INITIAL_ADMIN_PASSWORD"
 const InitialAdminApiToken = "GOPHISH_INITIAL_ADMIN_API_TOKEN"
 
 const (
-	CampaignInProgress string = "In progress"
-	CampaignQueued     string = "Queued"
-	CampaignCreated    string = "Created"
-	CampaignEmailsSent string = "Emails Sent"
-	CampaignComplete   string = "Completed"
-	EventSent          string = "Email Sent"
-	EventSendingError  string = "Error Sending Email"
-	EventOpened        string = "Email Opened"
-	EventClicked       string = "Clicked Link"
-	EventDataSubmit    string = "Submitted Data"
-	EventReported      string = "Email Reported"
-	EventProxyRequest  string = "Proxied request"
-	StatusSuccess      string = "Success"
-	StatusQueued       string = "Queued"
-	StatusSending      string = "Sending"
-	StatusUnknown      string = "Unknown"
-	StatusScheduled    string = "Scheduled"
-	StatusRetry        string = "Retrying"
-	Error              string = "Error"
+	CampaignInProgress string = "Davam edir"
+	CampaignQueued     string = "Növbədə"
+	CampaignCreated    string = "Yaradıldı"
+	CampaignEmailsSent string = "E-Poçtlar göndərildi"
+	CampaignComplete   string = "Tamamlandı"
+	EventSent          string = "E-Poçt göndərildi"
+	EventSendingError  string = "E-poçt göndərmə xətası"
+	EventOpened        string = "E-poçt Açıldı"
+	EventClicked       string = "Kliklənmiş Link"
+	EventDataSubmit    string = "Data Daxil Edildi"
+	EventReported      string = "E-poçt bildirildi"
+	EventProxyRequest  string = "Proksi sorğusu"
+	StatusSuccess      string = "Uğurlu"
+	StatusQueued       string = "Növbədə"
+	StatusSending      string = "Göndərilir"
+	StatusUnknown      string = "Naməlum"
+	StatusScheduled    string = "Planlaşdırılıb"
+	StatusRetry        string = "Yenidən cəhd edilir"
+	Error              string = "Xəta"
 )
 
 // Flash is used to hold flash information for use in templates.
@@ -119,7 +119,7 @@ func createTemporaryPassword(u *User) error {
 	if err != nil {
 		return err
 	}
-	log.Infof("Please login with the username admin and the password %s", temporaryPassword)
+	log.Infof("Zəhmət olmasa admin istifadəçi adı və şifrə ilə daxil olun %s", temporaryPassword)
 	return nil
 }
 

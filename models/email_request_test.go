@@ -24,7 +24,7 @@ func (s *ModelsSuite) TestEmailRequestBackoff(ch *check.C) {
 	req := &EmailRequest{
 		ErrorChan: make(chan error),
 	}
-	expected := errors.New("Temporary Error")
+	expected := errors.New("Müvəqqəti xəta")
 	go func() {
 		err := req.Backoff(expected)
 		ch.Assert(err, check.Equals, nil)
@@ -36,7 +36,7 @@ func (s *ModelsSuite) TestEmailRequestError(ch *check.C) {
 	req := &EmailRequest{
 		ErrorChan: make(chan error),
 	}
-	expected := errors.New("Temporary Error")
+	expected := errors.New("Müvəqqəti xəta")
 	go func() {
 		err := req.Error(expected)
 		ch.Assert(err, check.Equals, nil)
@@ -60,18 +60,18 @@ func (s *ModelsSuite) TestEmailRequestGenerate(ch *check.C) {
 		FromAddress: "from@example.com",
 	}
 	template := Template{
-		Name:    "Test Template",
-		Subject: "{{.FirstName}} - Subject",
-		Text:    "{{.Email}} - Text",
+		Name:    "Test Şablonu",
+		Subject: "{{.FirstName}} - Mövzu",
+		Text:    "{{.Email}} - Mətn",
 		HTML:    "{{.Email}} - HTML",
 	}
 	req := &EmailRequest{
 		SMTP:     smtp,
 		Template: template,
 		BaseRecipient: BaseRecipient{
-			FirstName: "First",
-			LastName:  "Last",
-			Email:     "firstlast@example.com",
+			FirstName: "Ad",
+			LastName:  "Soyad",
+			Email:     "AdSoyad@example.com",
 		},
 		FromAddress: smtp.FromAddress,
 	}
@@ -87,8 +87,8 @@ func (s *ModelsSuite) TestEmailRequestGenerate(ch *check.C) {
 	ch.Assert(err, check.Equals, nil)
 
 	expected := &email.Email{
-		Subject: fmt.Sprintf("%s - Subject", req.FirstName),
-		Text:    []byte(fmt.Sprintf("%s - Text", req.Email)),
+		Subject: fmt.Sprintf("%s - Mövzu", req.FirstName),
+		Text:    []byte(fmt.Sprintf("%s - Mətn", req.Email)),
 		HTML:    []byte(fmt.Sprintf("%s - HTML", req.Email)),
 	}
 
@@ -111,9 +111,9 @@ func (s *ModelsSuite) TestGetSmtpFrom(ch *check.C) {
 		FromAddress: "from@example.com",
 	}
 	template := Template{
-		Name:    "Test Template",
-		Subject: "{{.FirstName}} - Subject",
-		Text:    "{{.Email}} - Text",
+		Name:    "Test Şablonu",
+		Subject: "{{.FirstName}} - Mövzu",
+		Text:    "{{.Email}} - Mətn",
 		HTML:    "{{.Email}} - HTML",
 	}
 	req := &EmailRequest{
@@ -121,9 +121,9 @@ func (s *ModelsSuite) TestGetSmtpFrom(ch *check.C) {
 		Template: template,
 		URL:      "http://127.0.0.1/{{.Email}}",
 		BaseRecipient: BaseRecipient{
-			FirstName: "First",
-			LastName:  "Last",
-			Email:     "firstlast@example.com",
+			FirstName: "Ad",
+			LastName:  "Soyad",
+			Email:     "AdSoyad@example.com",
 		},
 		FromAddress: smtp.FromAddress,
 		RId:         fmt.Sprintf("%s-foobar", PreviewPrefix),
@@ -142,7 +142,7 @@ func (s *ModelsSuite) TestEmailRequestURLTemplating(ch *check.C) {
 		FromAddress: "from@example.com",
 	}
 	template := Template{
-		Name:    "Test Template",
+		Name:    "Test Şablonu",
 		Subject: "{{.URL}}",
 		Text:    "{{.URL}}",
 		HTML:    "{{.URL}}",
@@ -152,9 +152,9 @@ func (s *ModelsSuite) TestEmailRequestURLTemplating(ch *check.C) {
 		Template: template,
 		URL:      "http://127.0.0.1/{{.Email}}",
 		BaseRecipient: BaseRecipient{
-			FirstName: "First",
-			LastName:  "Last",
-			Email:     "firstlast@example.com",
+			FirstName: "Ad",
+			LastName:  "Soyad",
+			Email:     "AdSoyad@example.com",
 		},
 		FromAddress: smtp.FromAddress,
 		RId:         fmt.Sprintf("%s-foobar", PreviewPrefix),
@@ -181,18 +181,18 @@ func (s *ModelsSuite) TestEmailRequestGenerateEmptySubject(ch *check.C) {
 		FromAddress: "from@example.com",
 	}
 	template := Template{
-		Name:    "Test Template",
+		Name:    "Test Şablonu",
 		Subject: "",
-		Text:    "{{.Email}} - Text",
+		Text:    "{{.Email}} - Mətn",
 		HTML:    "{{.Email}} - HTML",
 	}
 	req := &EmailRequest{
 		SMTP:     smtp,
 		Template: template,
 		BaseRecipient: BaseRecipient{
-			FirstName: "First",
-			LastName:  "Last",
-			Email:     "firstlast@example.com",
+			FirstName: "Ad",
+			LastName:  "Soyad",
+			Email:     "AdSoyad@example.com",
 		},
 		FromAddress: smtp.FromAddress,
 	}
@@ -203,7 +203,7 @@ func (s *ModelsSuite) TestEmailRequestGenerateEmptySubject(ch *check.C) {
 
 	expected := &email.Email{
 		Subject: "",
-		Text:    []byte(fmt.Sprintf("%s - Text", req.Email)),
+		Text:    []byte(fmt.Sprintf("%s - Mətn", req.Email)),
 		HTML:    []byte(fmt.Sprintf("%s - HTML", req.Email)),
 	}
 
@@ -221,9 +221,9 @@ func (s *ModelsSuite) TestPostSendTestEmailRequest(ch *check.C) {
 		FromAddress: "from@example.com",
 	}
 	template := Template{
-		Name:    "Test Template",
+		Name:    "Test Şablonu",
 		Subject: "",
-		Text:    "{{.Email}} - Text",
+		Text:    "{{.Email}} - Mətn",
 		HTML:    "{{.Email}} - HTML",
 		UserId:  1,
 	}
@@ -231,7 +231,7 @@ func (s *ModelsSuite) TestPostSendTestEmailRequest(ch *check.C) {
 	ch.Assert(err, check.Equals, nil)
 
 	page := Page{
-		Name:   "Test Page",
+		Name:   "Test Səhifəsi",
 		HTML:   "test",
 		UserId: 1,
 	}
@@ -243,9 +243,9 @@ func (s *ModelsSuite) TestPostSendTestEmailRequest(ch *check.C) {
 		TemplateId: template.Id,
 		PageId:     page.Id,
 		BaseRecipient: BaseRecipient{
-			FirstName: "First",
-			LastName:  "Last",
-			Email:     "firstlast@example.com",
+			FirstName: "Ad",
+			LastName:  "Soyad",
+			Email:     "AdSoyad@example.com",
 		},
 	}
 	err = PostEmailRequest(req)

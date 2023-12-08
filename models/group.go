@@ -86,13 +86,13 @@ func (t *Target) FormatAddress() string {
 }
 
 // ErrEmailNotSpecified is thrown when no email is specified for the Target
-var ErrEmailNotSpecified = errors.New("No email address specified")
+var ErrEmailNotSpecified = errors.New("E-poçt qeyd edilməyib")
 
 // ErrGroupNameNotSpecified is thrown when a group name is not specified
-var ErrGroupNameNotSpecified = errors.New("Group name not specified")
+var ErrGroupNameNotSpecified = errors.New("Qrup adı qeyd edilməyib")
 
 // ErrNoTargetsSpecified is thrown when no targets are specified by the user
-var ErrNoTargetsSpecified = errors.New("No targets specified")
+var ErrNoTargetsSpecified = errors.New("Hədəf qeyd edilməyib")
 
 // Validate performs validation on a group given by the user
 func (g *Group) Validate() error {
@@ -230,7 +230,7 @@ func PutGroup(g *Group) error {
 	if err != nil {
 		log.WithFields(logrus.Fields{
 			"group_id": g.Id,
-		}).Error("Error getting targets from group")
+		}).Error("Qrupdan hədəfləri əldə etmək xətası")
 		return err
 	}
 	// Preload the caches
@@ -257,7 +257,7 @@ func PutGroup(g *Group) error {
 			tx.Rollback()
 			log.WithFields(logrus.Fields{
 				"email": t.Email,
-			}).Error("Error deleting email")
+			}).Error("E-poçt silinmə xətası")
 		}
 	}
 	// Add any targets that are not in the database yet.
@@ -316,7 +316,7 @@ func insertTargetIntoGroup(tx *gorm.DB, t Target, gid int64) error {
 	if _, err := mail.ParseAddress(t.Email); err != nil {
 		log.WithFields(logrus.Fields{
 			"email": t.Email,
-		}).Error("Invalid email")
+		}).Error("Yanlış E-poçt")
 		return err
 	}
 	err := tx.Where(t).FirstOrCreate(&t).Error
@@ -334,7 +334,7 @@ func insertTargetIntoGroup(tx *gorm.DB, t Target, gid int64) error {
 	if err != nil {
 		log.WithFields(logrus.Fields{
 			"email": t.Email,
-		}).Error("Error adding many-many mapping")
+		}).Error("Çoxlu xəritəni əlavə edərkən xəta baş verdi")
 		return err
 	}
 	return nil
@@ -351,7 +351,7 @@ func UpdateTarget(tx *gorm.DB, target Target) error {
 	if err != nil {
 		log.WithFields(logrus.Fields{
 			"email": target.Email,
-		}).Error("Error updating target information")
+		}).Error("Hədəf məlumatını yeniləyərkən xəta baş verdi")
 	}
 	return err
 }

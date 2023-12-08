@@ -78,35 +78,35 @@ func (s *ModelsSuite) TestResultVariableStatus(ch *check.C) {
 func (s *ModelsSuite) TestDuplicateResults(ch *check.C) {
 	group := Group{Name: "Test Group"}
 	group.Targets = []Target{
-		Target{BaseRecipient: BaseRecipient{Email: "test1@example.com", FirstName: "First", LastName: "Example"}},
-		Target{BaseRecipient: BaseRecipient{Email: "test1@example.com", FirstName: "Duplicate", LastName: "Duplicate"}},
-		Target{BaseRecipient: BaseRecipient{Email: "test2@example.com", FirstName: "Second", LastName: "Example"}},
+		Target{BaseRecipient: BaseRecipient{Email: "test1@example.com", FirstName: "Ad1", LastName: "Soyad1"}},
+		Target{BaseRecipient: BaseRecipient{Email: "test1@example.com", FirstName: "Dublikat", LastName: "Dublikat"}},
+		Target{BaseRecipient: BaseRecipient{Email: "test2@example.com", FirstName: "Ad2", LastName: "Soyad2"}},
 	}
 	group.UserId = 1
 	ch.Assert(PostGroup(&group), check.Equals, nil)
 
 	// Add a template
-	t := Template{Name: "Test Template"}
-	t.Subject = "{{.RId}} - Subject"
-	t.Text = "{{.RId}} - Text"
+	t := Template{Name: "Test Şablonu"}
+	t.Subject = "{{.RId}} - Mövzu"
+	t.Text = "{{.RId}} - Mətn"
 	t.HTML = "{{.RId}} - HTML"
 	t.UserId = 1
 	ch.Assert(PostTemplate(&t), check.Equals, nil)
 
 	// Add a landing page
-	p := Page{Name: "Test Page"}
+	p := Page{Name: "Test Səhifəsi"}
 	p.HTML = "<html>Test</html>"
 	p.UserId = 1
 	ch.Assert(PostPage(&p), check.Equals, nil)
 
 	// Add a sending profile
-	smtp := SMTP{Name: "Test Page"}
+	smtp := SMTP{Name: "Test Səhifəsi"}
 	smtp.UserId = 1
 	smtp.Host = "example.com"
 	smtp.FromAddress = "test@test.com"
 	ch.Assert(PostSMTP(&smtp), check.Equals, nil)
 
-	c := Campaign{Name: "Test campaign"}
+	c := Campaign{Name: "Test Kampaniyası"}
 	c.UserId = 1
 	c.Template = t
 	c.Page = p

@@ -92,7 +92,7 @@ func (w *DefaultWorker) processCampaigns(t time.Time) error {
 			}
 			log.WithFields(logrus.Fields{
 				"num_emails": len(msc),
-			}).Info("Sending emails to mailer for processing")
+			}).Info("E-poçtun göndərilməsi davam edir")
 			w.mailer.Queue(msc)
 		}(cid, msc)
 	}
@@ -102,7 +102,7 @@ func (w *DefaultWorker) processCampaigns(t time.Time) error {
 // Start launches the worker to poll the database every minute for any pending maillogs
 // that need to be processed.
 func (w *DefaultWorker) Start() {
-	log.Info("Background Worker Started Successfully - Waiting for Campaigns")
+	log.Info("Background Worker Uğurla Başladı - Kampaniyaları Gözləyir")
 	go w.mailer.Start(context.Background())
 	for t := range time.Tick(1 * time.Minute) {
 		err := w.processCampaigns(t)

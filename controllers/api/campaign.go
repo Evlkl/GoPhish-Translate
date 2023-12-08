@@ -28,7 +28,7 @@ func (as *Server) Campaigns(w http.ResponseWriter, r *http.Request) {
 		// Put the request into a campaign
 		err := json.NewDecoder(r.Body).Decode(&c)
 		if err != nil {
-			JSONResponse(w, models.Response{Success: false, Message: "Invalid JSON structure"}, http.StatusBadRequest)
+			JSONResponse(w, models.Response{Success: false, Message: "Yanlış JSON strukturu"}, http.StatusBadRequest)
 			return
 		}
 		err = models.PostCampaign(&c, ctx.Get(r, "user_id").(int64))
@@ -67,7 +67,7 @@ func (as *Server) Campaign(w http.ResponseWriter, r *http.Request) {
 	c, err := models.GetCampaign(id, ctx.Get(r, "user_id").(int64))
 	if err != nil {
 		log.Error(err)
-		JSONResponse(w, models.Response{Success: false, Message: "Campaign not found"}, http.StatusNotFound)
+		JSONResponse(w, models.Response{Success: false, Message: "Kampaniya tapılmadı"}, http.StatusNotFound)
 		return
 	}
 	switch {
@@ -76,10 +76,10 @@ func (as *Server) Campaign(w http.ResponseWriter, r *http.Request) {
 	case r.Method == "DELETE":
 		err = models.DeleteCampaign(id)
 		if err != nil {
-			JSONResponse(w, models.Response{Success: false, Message: "Error deleting campaign"}, http.StatusInternalServerError)
+			JSONResponse(w, models.Response{Success: false, Message: "Kampaniyanın silinməsində xəta baş verdi"}, http.StatusInternalServerError)
 			return
 		}
-		JSONResponse(w, models.Response{Success: true, Message: "Campaign deleted successfully!"}, http.StatusOK)
+		JSONResponse(w, models.Response{Success: true, Message: "Kampaniya uğurla silindi!"}, http.StatusOK)
 	}
 }
 
@@ -91,7 +91,7 @@ func (as *Server) CampaignResults(w http.ResponseWriter, r *http.Request) {
 	cr, err := models.GetCampaignResults(id, ctx.Get(r, "user_id").(int64))
 	if err != nil {
 		log.Error(err)
-		JSONResponse(w, models.Response{Success: false, Message: "Campaign not found"}, http.StatusNotFound)
+		JSONResponse(w, models.Response{Success: false, Message: "Kampaniya tapılmadı"}, http.StatusNotFound)
 		return
 	}
 	if r.Method == "GET" {
@@ -109,7 +109,7 @@ func (as *Server) CampaignSummary(w http.ResponseWriter, r *http.Request) {
 		cs, err := models.GetCampaignSummary(id, ctx.Get(r, "user_id").(int64))
 		if err != nil {
 			if err == gorm.ErrRecordNotFound {
-				JSONResponse(w, models.Response{Success: false, Message: "Campaign not found"}, http.StatusNotFound)
+				JSONResponse(w, models.Response{Success: false, Message: "Kampaniya tapılmadı"}, http.StatusNotFound)
 			} else {
 				JSONResponse(w, models.Response{Success: false, Message: err.Error()}, http.StatusInternalServerError)
 			}
@@ -129,9 +129,9 @@ func (as *Server) CampaignComplete(w http.ResponseWriter, r *http.Request) {
 	case r.Method == "GET":
 		err := models.CompleteCampaign(id, ctx.Get(r, "user_id").(int64))
 		if err != nil {
-			JSONResponse(w, models.Response{Success: false, Message: "Error completing campaign"}, http.StatusInternalServerError)
+			JSONResponse(w, models.Response{Success: false, Message: "Kampaniyanın tamamlanmasında xəta baş verdi"}, http.StatusInternalServerError)
 			return
 		}
-		JSONResponse(w, models.Response{Success: true, Message: "Campaign completed successfully!"}, http.StatusOK)
+		JSONResponse(w, models.Response{Success: true, Message: "Kampaniya uğurla başa çatdı!"}, http.StatusOK)
 	}
 }

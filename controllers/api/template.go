@@ -28,12 +28,12 @@ func (as *Server) Templates(w http.ResponseWriter, r *http.Request) {
 		// Put the request into a template
 		err := json.NewDecoder(r.Body).Decode(&t)
 		if err != nil {
-			JSONResponse(w, models.Response{Success: false, Message: "Invalid JSON structure"}, http.StatusBadRequest)
+			JSONResponse(w, models.Response{Success: false, Message: "Yanlış JSON strukturu"}, http.StatusBadRequest)
 			return
 		}
 		_, err = models.GetTemplateByName(t.Name, ctx.Get(r, "user_id").(int64))
 		if err != gorm.ErrRecordNotFound {
-			JSONResponse(w, models.Response{Success: false, Message: "Template name already in use"}, http.StatusConflict)
+			JSONResponse(w, models.Response{Success: false, Message: "Şablon adı artıq istifadə olunur"}, http.StatusConflict)
 			return
 		}
 		t.ModifiedDate = time.Now().UTC()
@@ -48,7 +48,7 @@ func (as *Server) Templates(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if err != nil {
-			JSONResponse(w, models.Response{Success: false, Message: "Error inserting template into database"}, http.StatusInternalServerError)
+			JSONResponse(w, models.Response{Success: false, Message: "Şablonu verilənlər bazasına daxil edərkən xəta baş verdi"}, http.StatusInternalServerError)
 			log.Error(err)
 			return
 		}
@@ -62,7 +62,7 @@ func (as *Server) Template(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.ParseInt(vars["id"], 0, 64)
 	t, err := models.GetTemplate(id, ctx.Get(r, "user_id").(int64))
 	if err != nil {
-		JSONResponse(w, models.Response{Success: false, Message: "Template not found"}, http.StatusNotFound)
+		JSONResponse(w, models.Response{Success: false, Message: "Şablon tapılmadı"}, http.StatusNotFound)
 		return
 	}
 	switch {
@@ -71,10 +71,10 @@ func (as *Server) Template(w http.ResponseWriter, r *http.Request) {
 	case r.Method == "DELETE":
 		err = models.DeleteTemplate(id, ctx.Get(r, "user_id").(int64))
 		if err != nil {
-			JSONResponse(w, models.Response{Success: false, Message: "Error deleting template"}, http.StatusInternalServerError)
+			JSONResponse(w, models.Response{Success: false, Message: "Şablon silinməsi xətası"}, http.StatusInternalServerError)
 			return
 		}
-		JSONResponse(w, models.Response{Success: true, Message: "Template deleted successfully!"}, http.StatusOK)
+		JSONResponse(w, models.Response{Success: true, Message: "Şablon uğurla silindi!"}, http.StatusOK)
 	case r.Method == "PUT":
 		t = models.Template{}
 		err = json.NewDecoder(r.Body).Decode(&t)
@@ -82,7 +82,7 @@ func (as *Server) Template(w http.ResponseWriter, r *http.Request) {
 			log.Error(err)
 		}
 		if t.Id != id {
-			JSONResponse(w, models.Response{Success: false, Message: "Error: /:id and template_id mismatch"}, http.StatusBadRequest)
+			JSONResponse(w, models.Response{Success: false, Message: "Xəta: /:id və template_id uyğunsuzluğu"}, http.StatusBadRequest)
 			return
 		}
 		t.ModifiedDate = time.Now().UTC()

@@ -45,33 +45,33 @@ func setupTest(t *testing.T) *testContext {
 func createTestData(t *testing.T, ctx *testContext) {
 	ctx.config.TestFlag = true
 	// Add a group
-	group := models.Group{Name: "Test Group"}
+	group := models.Group{Name: "Test Qrupu"}
 	for i := 0; i < 10; i++ {
 		group.Targets = append(group.Targets, models.Target{
 			BaseRecipient: models.BaseRecipient{
 				Email:     fmt.Sprintf("test%d@example.com", i),
-				FirstName: "First",
-				LastName:  "Example"}})
+				FirstName: "Ad",
+				LastName:  "Soyad"}})
 	}
 	group.UserId = 1
 	models.PostGroup(&group)
 
 	// Add a template
-	template := models.Template{Name: "Test Template"}
-	template.Subject = "Test subject"
-	template.Text = "Text text"
+	template := models.Template{Name: "Test Şablonu"}
+	template.Subject = "Test mövzusu"
+	template.Text = "Text mətni"
 	template.HTML = "<html>Test</html>"
 	template.UserId = 1
 	models.PostTemplate(&template)
 
 	// Add a landing page
-	p := models.Page{Name: "Test Page"}
+	p := models.Page{Name: "Test Səhifəsi"}
 	p.HTML = "<html>Test</html>"
 	p.UserId = 1
 	models.PostPage(&p)
 
 	// Add a sending profile
-	smtp := models.SMTP{Name: "Test Page"}
+	smtp := models.SMTP{Name: "Test Səhifəsi"}
 	smtp.UserId = 1
 	smtp.Host = "example.com"
 	smtp.FromAddress = "test@test.com"
@@ -81,7 +81,7 @@ func createTestData(t *testing.T, ctx *testContext) {
 func setupCampaign(id int) (*models.Campaign, error) {
 	// Setup and "launch" our campaign
 	// Set the status such that no emails are attempted
-	c := models.Campaign{Name: fmt.Sprintf("Test campaign - %d", id)}
+	c := models.Campaign{Name: fmt.Sprintf("Test Kampaniyası - %d", id)}
 	c.UserId = 1
 	template, err := models.GetTemplate(1, 1)
 	if err != nil {

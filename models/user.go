@@ -101,14 +101,14 @@ func DeleteUser(id int64) error {
 		return err
 	}
 	// Delete the campaigns
-	log.Infof("Deleting campaigns for user ID %d", id)
+	log.Infof("%d İD-li istifadəçi üçün Kampaniyalar silinir", id)
 	for _, campaign := range campaigns {
 		err = DeleteCampaign(campaign.Id)
 		if err != nil {
 			return err
 		}
 	}
-	log.Infof("Deleting pages for user ID %d", id)
+	log.Infof("%d İD-li istifadəçi üçün Səhifələr silinir", id)
 	// Delete the landing pages
 	pages, err := GetPages(id)
 	if err != nil {
@@ -121,7 +121,7 @@ func DeleteUser(id int64) error {
 		}
 	}
 	// Delete the templates
-	log.Infof("Deleting templates for user ID %d", id)
+	log.Infof("%d İD-li istifadəçi üçün Şablonlar silinir", id)
 	templates, err := GetTemplates(id)
 	if err != nil {
 		return err
@@ -133,7 +133,7 @@ func DeleteUser(id int64) error {
 		}
 	}
 	// Delete the groups
-	log.Infof("Deleting groups for user ID %d", id)
+	log.Infof("%d İD-li istifadəçi üçün Qruplar silinir", id)
 	groups, err := GetGroups(id)
 	if err != nil {
 		return err
@@ -145,7 +145,7 @@ func DeleteUser(id int64) error {
 		}
 	}
 	// Delete the sending profiles
-	log.Infof("Deleting sending profiles for user ID %d", id)
+	log.Infof("%d İD-li istifadəçi üçün Profillər silinir", id)
 	profiles, err := GetSMTPs(id)
 	if err != nil {
 		return err
