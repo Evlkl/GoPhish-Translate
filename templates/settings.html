@@ -1,18 +1,18 @@
 {{define "body"}}
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
-        <h1 class="page-header">Settings</h1>
+        <h1 class="page-header">Tənzimləmələr</h1>
     </div>
     <div id="flashes" class="row"></div>
     {{template "flashes" .Flashes}}
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="active" role="mainSettings"><a href="#mainSettings" aria-controls="mainSettings" role="tab"
-                data-toggle="tab">Account Settings</a></li>
+                data-toggle="tab">Hesab Tənzimləmələri</a></li>
         <li role="uiSettings"><a href="#uiSettings" aria-controls="uiSettings" role="tab" data-toggle="tab">UI
                 Settings</a></li>
         <li role="reportingSettings"><a href="#reportingSettings" aria-controls="reportingSettings" role="tab" id="reporttab"
-            data-toggle="tab">Reporting Settings</a></li>
+            data-toggle="tab">Hesabat Parametrləri</a></li>
     </ul>
     <!-- Tab Panes -->
     <div class="tab-content">
@@ -20,7 +20,7 @@
             <br />
             {{if .ModifySystem }}
             <div class="row">
-                <label class="col-sm-2 control-label form-label">Gophish version</label>
+                <label class="col-sm-2 control-label form-label">Gophish versiyası</label>
                 <div class="col-md-6">
                     <label class="form-label">{{.Version}}</label>
                 </div>
@@ -28,20 +28,20 @@
             <br />
             {{end}}
             <div class="row">
-                <label for="api_key" class="col-sm-2 control-label form-label">API Key:</label>
+                <label for="api_key" class="col-sm-2 control-label form-label">API Açarı:</label>
                 <div class="col-md-6">
                     <input type="text" id="api_key" onclick="this.select();" value="{{.User.ApiKey}}"
                         class="form-control" readonly />
                 </div>
                 <form id="apiResetForm">
-                    <button class="btn btn-primary"><i class="fa fa-refresh" type="submit"></i> Reset</button>
+                    <button class="btn btn-primary"><i class="fa fa-refresh" type="submit"></i> Sıfırla</button>
                     <input type="hidden" name="csrf_token" value="{{.Token}}" />
                 </form>
             </div>
             <br />
             <form id="settingsForm">
                 <div class="row">
-                    <label for="username" class="col-sm-2 control-label form-label">Username:</label>
+                    <label for="username" class="col-sm-2 control-label form-label">İstifadəçi Adı:</label>
                     <div class="col-md-6">
                         <input type="text" id="username" name="username" value="{{.User.Username}}"
                             class="form-control" />
@@ -49,7 +49,7 @@
                 </div>
                 <br />
                 <div class="row">
-                    <label for="current_password" class="col-sm-2 control-label form-label">Old Password:</label>
+                    <label for="current_password" class="col-sm-2 control-label form-label">Köhnə Şifrə:</label>
                     <div class="col-md-6">
                         <input type="password" id="current_password" name="current_password" autocomplete="off"
                             class="form-control" />
@@ -57,7 +57,7 @@
                 </div>
                 <br />
                 <div class="row">
-                    <label for="new_password" class="col-sm-2 control-label form-label">New Password:</label>
+                    <label for="new_password" class="col-sm-2 control-label form-label">Təzə Şifrə:</label>
                     <div class="col-md-6">
                         <input type="password" id="password" name="new_password" autocomplete="new-password"
                             class="form-control" />
@@ -72,8 +72,8 @@
                 </div>
                 <br />
                 <div class="row">
-                    <label for="confirm_new_password" class="col-sm-2 control-label form-label">Confirm New
-                        Password:</label>
+                    <label for="confirm_new_password" class="col-sm-2 control-label form-label">Yeni Şifrəni
+                        Təsdiqlə:</label>
                     <div class="col-md-6">
                         <input type="password" id="confirm_new_password" name="confirm_new_password" autocomplete="off"
                             class="form-control" />
@@ -81,7 +81,7 @@
                 </div>
                 <input type="hidden" name="csrf_token" value="{{.Token}}" />
                 <br />
-                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save</button>
+                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Saxla</button>
             </form>
             <br />
         </div>
@@ -89,7 +89,7 @@
             <br />
             <div class="checkbox checkbox-primary">
                 <input id="use_map" type="checkbox">
-                <label for="use_map">Show campaign results map</label>
+                <label for="use_map">Kampaniya nəticələrinin xəritəsini göstərin</label>
             </div>
         </div>
         <!-- Reporting Settings Begin -->
@@ -98,7 +98,7 @@
             <br />
             <div class="row">
                 <div class="col-md-6">
-                    Monitor an IMAP account for emails reported by users.
+                    İstifadəçilər tərəfindən bildirilən e-poçtlar üçün IMAP hesabını izləyin.
                 </div>
              </div>
             <br />
@@ -107,7 +107,7 @@
                 <div class="col-md-6">
                 <div class="checkbox checkbox-primary">
                     <input id="use_imap" type="checkbox">
-                    <label for="use_imap">Enable Email Account Monitoring</label>
+                    <label for="use_imap">E-poçt Hesabı Monitorinqini aktivləşdirin</label>
                 </div>
                 </div>
              </div>
@@ -133,7 +133,7 @@
             <br />
 
             <div class="row">
-                <label for="imapusername" class="col-sm-2 control-label form-label">IMAP Username:</label>
+                <label for="imapusername" class="col-sm-2 control-label form-label">IMAP İstifadəçi Adı:</label>
                 <div class="col-md-6">
                     <input type="text" id="imapusername" name="imapusername" placeholder="Username"
                         class="form-control" />
@@ -142,7 +142,7 @@
             <br />
 
             <div class="row">
-                <label for="imappassword" class="col-sm-2 control-label form-label">IMAP Password:</label>
+                <label for="imappassword" class="col-sm-2 control-label form-label">IMAP Şifrəsi:</label>
                 <div class="col-md-6">
                     <input type="password" id="imappassword" name="imappassword" placeholder="Password" autocomplete="off"
                         class="form-control" />
@@ -152,7 +152,7 @@
 
 
             <div class="row">
-                <label for="use_tls" class="col-sm-2 control-label form-label">Use TLS:</label>
+                <label for="use_tls" class="col-sm-2 control-label form-label">TLS İstifadə Et:</label>
                 <div class="col-md-6">
                     <div class="checkbox checkbox-primary">
                         <input id="use_tls" type="checkbox">
@@ -166,7 +166,7 @@
             <div id="advancedarea" style="display: none;">
                 <hr>
                 <div class="row">
-                <label for="folder" class="col-sm-2 control-label form-label">Folder:</label>
+                <label for="folder" class="col-sm-2 control-label form-label">Qovluq:</label>
                     <div class="col-md-6">
                         <input type="text" id="folder" name="folder" placeholder="Leave blank for default of INBOX."
                             class="form-control" />
@@ -175,25 +175,25 @@
                 <br />
 
                 <div class="row">
-                    <label for="folder" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="How often to check for new emails. 30 seconds minimum.">Polling frequency:</label>
+                    <label for="folder" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="Yeni e-poçtları nə qədər tez-tez yoxlamaq lazımdır. Minimum 30 saniyə.">Yoxlama Tezliyi:</label>
                         <div class="col-md-6">
-                            <input type="number" id="imapfreq" name="imapfreq" placeholder="Leave blank for default of every 60 seconds."
+                            <input type="number" id="imapfreq" name="imapfreq" placeholder="Hər 60 saniyədən bir, defolt üçün boş buraxın."
                                 class="form-control" />
                         </div>
                     </div>
                     <br />
         
                 <div class="row">
-                    <label for="restrictdomain" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="Only check emails reported from the supplied domain.">Restrict to domain:</label>
+                    <label for="restrictdomain" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="Yalnız müəyyən domendən bildirilən e-poçtları yoxlayın.">Bu Domenlə Məhdudlaşdırın:</label>
                     <div class="col-md-6">
-                        <input type="text" id="restrictdomain" name="restrictdomain" placeholder="e.g. widgets.com. Leave blank for all domains."
+                        <input type="text" id="restrictdomain" name="restrictdomain" placeholder="məs. widgets.com. Bütün domenlər üçün boş buraxın."
                             class="form-control" />
                     </div>
                 </div>
                 <br />
 
                 <div class="row">
-                    <label for="ignorecerterrors" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="Ignore common certificate errors such as self-signed certs (exposes you to MiTM attacks - use carefully!)">Ignore Certificate Errors:</label>
+                    <label for="ignorecerterrors" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="Saxta sertifikat istifadə edərək xətaları atlayır (MİTM hücumlarına məruz qala bilərsiniz.Diqqətli olun!)">Sertifikat xətalarını atla:</label>
                     <div class="col-md-6">
                         <div class="checkbox checkbox-primary">
                             <input id="ignorecerterrors" type="checkbox">
@@ -204,7 +204,7 @@
                 <br />
 
                 <div class="row">
-                    <label for="deletecampaign" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="Delete campaign emails after they've been reported.">Delete campaigns emails:</label>
+                    <label for="deletecampaign" class="col-sm-2 control-label form-label" data-toggle="tooltip" title="Kampaniya e-poçtlarını bildirildikdən sonra silin.">Kampaniya E-poçtlarını Sil:</label>
                     <div class="col-md-6">
                         <div class="checkbox checkbox-primary">
                             <input id="deletecampaign" type="checkbox">
@@ -216,9 +216,9 @@
                 <br />
         
                 <div class="row" id="lastlogindiv">
-                <label for="lastlogin" class="col-sm-2 control-label form-label">Last succesful login:</label>
+                <label for="lastlogin" class="col-sm-2 control-label form-label">Son Giriş:</label>
                 <div class="col-md-6">
-                    <input type="text" id="lastlogin" name="lastlogin" placeholder="Checking..." disabled
+                    <input type="text" id="lastlogin" name="lastlogin" placeholder="Yoxlanılır..." disabled
                         class="form-control border-0" />
                     </div>
                 </div>
@@ -230,12 +230,12 @@
             <div class="row">
                 <label for="advancedsettings" class="col-sm-2 control-label form-label"></label>
                 <div class="col-md-6 text-right">
-                    <button class="btn-xs btn-link" id="advanced" type="button">Advanced Settings</button>
+                    <button class="btn-xs btn-link" id="advanced" type="button">Təkmilləşdirilmiş Tənzimləmələr</button>
                 </div>
             </div>
 
-            <button class="btn btn-primary" id ="savesettings" type="button"><i class="fa fa-save"></i> Save</button>
-            <button class="btn btn-primary" id="validateimap" type="button"><i class="fa fa-wrench"></i> Test Settings</button>
+            <button class="btn btn-primary" id ="savesettings" type="button"><i class="fa fa-save"></i> Saxla</button>
+            <button class="btn btn-primary" id="validateimap" type="button"><i class="fa fa-wrench"></i> Tənzimləmələri Test Et</button>
 
 
         </form>

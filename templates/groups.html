@@ -2,14 +2,14 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
         <h1 class="page-header">
-            Users &amp; Groups
+            İsifadəçilər &amp; Qruplar
         </h1>
     </div>
     <div id="flashes" class="row"></div>
     <div class="row">
         <button type="button" class="btn btn-primary" onclick="edit(-1)" data-toggle="modal" data-backdrop="static"
             data-target="#modal">
-            <i class="fa fa-plus"></i> New Group</button>
+            <i class="fa fa-plus"></i> Yeni Qrup</button>
     </div>
     &nbsp;
     <div id="loading">
@@ -17,16 +17,16 @@
     </div>
     <div id="emptyMessage" class="row" style="display:none;">
         <div class="alert alert-info">
-            No groups created yet. Let's create one!
+            Heç bir qrup yaradılmayıb.Birini yarat!
         </div>
     </div>
     <div class="row">
         <table id="groupTable" class="table" style="display:none;">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th># of Members</th>
-                    <th>Modified Date</th>
+                    <th>Ad</th>
+                    <th>Üzvlər</th>
+                    <th>Dəyişdirilmə Tarixi</th>
                     <th class="col-md-2 no-sort"></th>
                 </tr>
             </thead>
@@ -43,41 +43,41 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="groupModalLabel">New Group</h4>
+                <h4 class="modal-title" id="groupModalLabel">Yeni Qrup</h4>
             </div>
             <div class="modal-body">
                 <div class="row" id="modal.flashes"></div>
-                <label class="control-label" for="name">Name:</label>
+                <label class="control-label" for="name">Ad:</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="group.name" placeholder="Group name" id="name"
+                    <input type="text" class="form-control" ng-model="group.name" placeholder="Qrup Adı" id="name"
                         autofocus />
                 </div>
                 <div class="form-group">
                     <span class="btn btn-danger btn-file" data-toggle="tooltip" data-placement="right"
                         title="Supports CSV files" id="fileUpload">
-                        <i class="fa fa-plus"></i> Bulk Import Users
+                        <i class="fa fa-plus"></i> İstifadəçiləri İmport Elə
                         <input type="file" id="csvupload" multiple>
                     </span>
                     <span id="csv-template" class="text-muted small">
-                        <i class="fa fa-file-excel-o"></i> Download CSV Template</span>
+                        <i class="fa fa-file-excel-o"></i> CSV Şablonu Yüklə</span>
                 </div>
                 <div class="row">
                     <form id="targetForm">
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="First Name" id="firstName">
+                            <input type="text" class="form-control" placeholder="Ad" id="firstName">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="Last Name" id="lastName">
+                            <input type="text" class="form-control" placeholder="Soyad" id="lastName">
                         </div>
                         <div class="col-sm-3">
-                            <input type="email" class="form-control" placeholder="Email" id="email" required>
+                            <input type="email" class="form-control" placeholder="E-poçt" id="email" required>
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" placeholder="Position" id="position">
+                            <input type="text" class="form-control" placeholder="Vəzifə" id="position">
                         </div>
                         <div class="col-sm-1">
                             <button type="submit" class="btn btn-danger btn-lg">
-                                <i class="fa fa-plus"></i> Add</button>
+                                <i class="fa fa-plus"></i> Əlavə et</button>
                         </div>
                     </form>
                 </div>
@@ -85,18 +85,18 @@
                 <table id="targetsTable" class="table table-hover table-striped table-condensed">
                     <thead>
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Position</th>
+                            <th>Ad</th>
+                            <th>Soyad</th>
+                            <th>E-poçt</th>
+                            <th>Vəzifə</th>
                             <th class="no-sort"></th>
                     <tbody>
                     </tbody>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="modalSubmit">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Bağla</button>
+                <button type="button" class="btn btn-primary" id="modalSubmit">Dəyişiklikləri saxla</button>
             </div>
         </div>
     </div>

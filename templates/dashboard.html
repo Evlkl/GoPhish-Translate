@@ -1,7 +1,7 @@
 {{define "body"}}
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h1 class="page-header">
-        Dashboard
+        İdarəetmə Paneli
     </h1>
     <div id="loading">
         <i class="fa fa-spinner fa-spin fa-4x"></i>
@@ -9,7 +9,7 @@
     {{template "flashes" .Flashes}}
     <div id="emptyMessage" style="display:none;">
         <div class="alert alert-info">
-            No campaigns created yet. Let's create one!
+            Heç bir kampaniya yaradılmayıb.Birini yarat!
         </div>
     </div>
     <div id="dashboard" style="display:none;">
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <a href="/campaigns">
-                <button type="button" class="btn btn-primary">View All</button>
+                <button type="button" class="btn btn-primary">Hamısını Gör</button>
             </a>
         </div>
         &nbsp;&nbsp;
@@ -38,8 +38,8 @@
             <table id="campaignTable" class="table">
                 <thead>
                     <tr>
-                        <th class="col-md-2 col-sm-2">Name</th>
-                        <th class="col-md-2 col-sm-2">Created Date</th>
+                        <th class="col-md-2 col-sm-2">Ad</th>
+                        <th class="col-md-2 col-sm-2">Yaradılma Tarixi</th>
                         <th class="col-md-1 col-sm-1">
                             <i class="fa fa-envelope-o"></i>
                         </th>
